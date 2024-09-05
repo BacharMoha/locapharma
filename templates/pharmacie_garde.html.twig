@@ -279,6 +279,59 @@
 
 
 				}
+				.notifications {
+    position: relative;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+				.modal-content {
+					border-radius: 20px;
+					padding: 30px;
+					box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+				}
+
+				.modal-title {
+					font-family: "Luminari", "Comic Sans MS", cursive, sans-serif;
+					font-size: 1.3rem;
+					color: #0839CF;
+				}
+
+				.modal-body .notification-date {
+					font-family: 'Arial', sans-serif;
+					font-size: 1rem;
+					color: #666666;
+				}
+
+				.modal-body .notification-body {
+					font-family: 'Arial', sans-serif;
+					font-size: 1rem;
+					margin-top:10px;
+					color: #333333;
+				}
+
+				.btn-primary {
+					border-radius: 20px;
+					background-color: #0839CF;
+					color: #ffffff;
+				}
+
+				.btn-primary:hover {
+					background-color: #052a94;
+				}
 			</style>
 			<nav style="margin-top: -12%;">
 				<div class="container">
@@ -290,15 +343,44 @@
 						</div>
 						<div class="col-md-4 text-center my-2 my-md-0"></div>
 						<div class="col-md-4 text-center text-md-end">
-							<a href="{{ path('app_notification') }}">
-								<div class="notifications">
-									<i class="bi bi-bell"></i>
-									<svg style="color: #0839CF;" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bell-fill" viewbox="0 0 16 16">
-										<path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2m.995-14.901a1 1 0 1 0-1.99 0A5 5 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901"/>
-									</svg>
-								</div>
-							</a>
+    <a href="" data-bs-toggle="modal" data-bs-target="#notificationModal">
+        <div class="notifications position-relative">
+            <i class="bi bi-bell"></i>
+
+            <svg style="color: #0839CF;" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
+                <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2m.995-14.901a1 1 0 1 0-1.99 0A5 5 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901"/>
+            </svg>
+
+            {% if notification_count > 0 %}
+                <span class="notification-badge">{{ notification_count }}</span>
+            {% endif %}
+        </div>
+    </a>
+</div>
+
+			<div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="notificationModalLabel" style="font-size: 15px;">Tous les notification</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						</div>
+				{% for notification in notifications %}
+						<div class="modal-body">
+							<p class="modal-title " >{{ notification.title }}</p>
+							<p class="notification-body">{{ notification.body }}</p>
+							<p class="notification-date" style="float:right;margin-top:25px;">Publié le {{ notification.createdAt|date('d M Y') }}</p>
+						</div>
+						<hr>
+					{% else %}
+							<p>Aucune notification disponible.</p>
+						{% endfor %}
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Quitter</button>
+						</div>
+					</div>
+				</div>
+			</div>  
 					</header>
 					
 					<main class="container mt-5" style="margin-top: 5%; border-radius: 5%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
@@ -307,22 +389,28 @@
 							<div class="card-body" style="margin-top: -5%; border-radius: 5%; padding: 7%;">
 								<center><img src="{{ asset('images/pharmacy-icon.jpg') }}" alt="Medicament Icon" style="   height: 100px;"></center>
 								<p class="card-title" style="text-align: center; font-weight: bolder; font-size:38px; color: #0839CF;">Pharmacie de Garde</p>
+								{% if message %}
+<center>
+								<p  style ="font-weight:bold;color:red;font-size:20px;">
+									{{ message }}
+								</p></center>
+								{% else %}
 								<p class="card-text" style="text-align: center; ">“La pharmacie de garde cette semaine est
-									<strong style="font-size: 18px; color:rgb(42, 63, 251);">Pharmacie Yassine</strong>. 
+									<strong style="font-size: 18px; color:rgb(42, 63, 251);">{{ pharmacie.nomPharma }}</strong>. 
 										    Située en plein cœur de la ville, 
 										    cette pharmacie est ouverte pour répondre à vos besoins urgents en médicaments et en soins. 
 										    Elle sera à votre service du
-									<strong style="font-size: 18px; color:rgb(42, 63, 251);">7/09/2024 au 13/09/2024</strong>, assurant une disponibilité continue pour vous 
+									<strong style="font-size: 18px; color:rgb(42, 63, 251);">{{ planning.dateDebut ? planning.dateDebut|date('H:i') : 'Non spécifié' }} au {{ planning.dateFin ? planning.dateFin|date('H:i') : 'Non spécifié' }}</strong>, assurant une disponibilité continue pour vous 
 										    et vos proches.”
 
 								</p>
 								<p class="card-text" style="text-align: center;  margin-top: 5%; ">
 									“En cas de besoin, vous pouvez facilement contacter la pharmacie de garde en cliquant sur 
 									  l'icône de téléphone ci-dessous.
-									<strong style="font-size: 18px; color:rgb(42, 63, 251);">Pharmacie Yassine</strong>
+									<strong style="font-size: 18px; color:rgb(42, 63, 251);">{{ pharmacie.nomPharma }}</strong>
 									se tient prête à vous assister avec professionnalisme et attention.”
 								</p>
-
+						
 							</div>
 
 						</div>
@@ -333,47 +421,47 @@
 								</svg><br>
 								<span>Contactez la Pharmacie</span>
 							</div>
+{% endif %}
 							<main>
 						</div>
 					</div>
 					<!-- Bouton de contact -->
 				</main>
-				<footer>
-					<nav class="bottom-nav">
-						<a href="{{ path('app_index') }}" class="nav-item">
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-house-fill" viewbox="0 0 16 16">
-								<path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
-								<path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"/>
-							</svg>
-							<span>Accueil</span>
-						</a>
-						<a href="#" class="nav-item">
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-geo-alt-fill" viewbox="0 0 16 16">
-								<path fill-rule="evenodd" d="M12 6a4 4 0 1 0-8 0 4 4 0 0 0 8 0ZM8 0a6 6 0 0 0-6 6c0 1.7.924 3.68 2.287 5.329.678.843 1.454 1.593 2.155 2.146.354.28.688.528.958.711.134.091.252.165.345.217l.066.036.017.01h.002l.001.001s0-.001.4.202a.25.25 0 0 0 .234 0s.4-.202.4-.202l.002-.001h.001l.017-.01.066-.036c.093-.052.211-.126.345-.217.27-.183.604-.43.958-.711.701-.553 1.477-1.303 2.155-2.146C13.076 9.68 14 7.7 14 6a6 6 0 0 0-6-6Z"/>
-							</svg>
-							<span>Pharmacie proche</span>
-						</a>
-						<a href="{{ path('pharmacie_garde') }}" class="nav-item">
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" ç fill="currentColor" class="bi bi-clock-fill" viewbox="0 0 16 16">
-								<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM7.5 3.5a.5.5 0 0 0-1 0V8a.5.5 0 0 0 .276.447l3.5 1.75a.5.5 0 0 0 .448-.894L7.5 7.742V3.5Z"/>
-							</svg>
-							<span>Pharmacie de garde</span>
-						</a>
-						<a href="{{ path('recherche_medicament') }}" class="nav-item">
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-search" viewbox="0 0 16 16">
-								<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001a1.007 1.007 0 0 0-.116.125l-2.45 2.45a1 1 0 0 0 1.415 1.415l2.45-2.45a1.007 1.007 0 0 0 .125-.116v-.001a6.5 6.5 0 0 0 1.398-1.397zm-6.321-5.027a5.5 5.5 0 1 1 7.778 7.778 5.5 5.5 0 0 1-7.778-7.778z"/>
-							</svg>
-							<span>Recherche de médicament</span>
-						</a>
-						<a href="#" class="nav-item">
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-fill" viewbox="0 0 16 16">
-								<path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-							</svg>
-							<span>Profile</span>
-						</a>
-					</nav>
-				</footer>
+	
 			</div>
+						<footer>
+			<nav class="bottom-nav">
+				<a href="{{ path('app_index') }}" style="margin-left: 5%;">
+								<img src="{{ asset('images/LocaPharma_color.png') }}" id="locfr" width="99" height="40" alt="Pharmacy Icon">
+							</a>
+				<a href="{{ path('app_index') }}" class="nav-item">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-house-fill" viewbox="0 0 16 16">
+						<path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
+						<path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"/>
+					</svg>
+					<span>Accueil</span>
+				</a>
+				<a href="{{ path('pharmacie_proche') }}" class="nav-item">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-geo-alt-fill" viewbox="0 0 16 16">
+						<path fill-rule="evenodd" d="M12 6a4 4 0 1 0-8 0 4 4 0 0 0 8 0ZM8 0a6 6 0 0 0-6 6c0 1.7.924 3.68 2.287 5.329.678.843 1.454 1.593 2.155 2.146.354.28.688.528.958.711.134.091.252.165.345.217l.066.036.017.01h.002l.001.001s0-.001.4.202a.25.25 0 0 0 .234 0s.4-.202.4-.202l.002-.001h.001l.017-.01.066-.036c.093-.052.211-.126.345-.217.27-.183.604-.43.958-.711.701-.553 1.477-1.303 2.155-2.146C13.076 9.68 14 7.7 14 6a6 6 0 0 0-6-6Z"/>
+					</svg>
+					<span>Pharmacie proche</span>
+				</a>
+				<a href="{{ path('pharmacie_garde') }}" class="nav-item">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" ç fill="currentColor" class="bi bi-clock-fill" viewbox="0 0 16 16">
+						<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM7.5 3.5a.5.5 0 0 0-1 0V8a.5.5 0 0 0 .276.447l3.5 1.75a.5.5 0 0 0 .448-.894L7.5 7.742V3.5Z"/>
+					</svg>
+					<span>Pharmacie de garde</span>
+				</a>
+				<a href="{{ path('recherche_medicament') }}" class="nav-item">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-search" viewbox="0 0 16 16">
+						<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001a1.007 1.007 0 0 0-.116.125l-2.45 2.45a1 1 0 0 0 1.415 1.415l2.45-2.45a1.007 1.007 0 0 0 .125-.116v-.001a6.5 6.5 0 0 0 1.398-1.397zm-6.321-5.027a5.5 5.5 0 1 1 7.778 7.778 5.5 5.5 0 0 1-7.778-7.778z"/>
+					</svg>
+					<span>Recherche de médicament</span>
+				</a>
+				
+			</nav>
+		</footer>
 			<script>
 				document.addEventListener('DOMContentLoaded', function () {
 const pharmacyModal = document.getElementById('pharmacyModal');

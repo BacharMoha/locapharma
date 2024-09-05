@@ -98,7 +98,7 @@
 			</span>
 		</div>
 
-		<a href="{{ path('app_notifications') }}" class="btn btn-add mb-3" style="border-radius: 10px; float: right;">Ajouter</a>
+		<a href="{{ path('app_notifications') }}" class="btn btn-success mb-3" style="border-radius: 10px; float: right;">Ajouter</a>
 
 		<table class="table table-striped">
 			<thead>
@@ -111,26 +111,21 @@
 				</tr>
 			</thead>
 			<tbody id="notificationsList">
+{% for notification in notifications %}
+	
+
 				<tr>
-					<td>1</td>
-					<td>Notification 1</td>
-					<td>Ceci est un exemple de message de notification.</td>
-					<td>12/08/2024</td>
+					<td>#</td>
+					<td>{{notification.Title}}</td>
+					<td style="line-wid:2px" >{{notification.body}}</td>
+					<td>{{notification.createdAt|date('d-m-y')}}</td>
 					<td>
-						<a href="{{ path('app_modifiernotif') }}" class="btn btn-edit" style="border-radius: 20px;">Modifier</a>
-						<a href="#" class="btn btn-delete" style="border-radius: 20px;">Supprimer</a>
-					</td>
+						<a href="{{ path('app_modifiernotif', { 'id': notification.id }) }}" class="btn btn-success" style="float:left; border-radius: 20px;">Modifier</a>
+<form method="post" action="{{ path('app_delete_notification', { 'id': notification.id }) }}"  style="float:left">
+                    <button type="submit" class="btn btn-danger" style="border-radius: 20px;">Supprimer</button>
+                </form>					</td>
 				</tr>
-				<tr>
-					<td>2</td>
-					<td>Notification 2</td>
-					<td>Un autre exemple de message.</td>
-					<td>13/08/2024</td>
-					<td>
-						<a href="{{ path('app_modifiernotif') }}" class="btn btn-edit" style="border-radius: 20px;">Modifier</a>
-						<a href="#" class="btn btn-delete" style="border-radius: 20px;">Supprimer</a>
-					</td>
-				</tr>
+			{% endfor %}
 				<!-- Ajouter une boucle ici pour afficher toutes les notifications -->
 			</tbody>
 		</table>

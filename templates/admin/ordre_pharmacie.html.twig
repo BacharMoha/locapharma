@@ -99,35 +99,35 @@
 	<div class="background-overlay">
 
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<div class="container-fluid">
-				<a class="navbar-brand" href="#"></a>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarNav">
-					<ul class="navbar-nav ms-auto">
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								Profil
-							</a>
-							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" style="border-radius: 20px;">
-								<li>
-									<a class="dropdown-item" href="#">
-										Bachar</a>
-								</li>
-								<li>
-									<a class="dropdown-item" href="#">bachar@example.com</a>
-								</li>
-								<li><hr class="dropdown-divider"></li>
-								<li>
-									<a class="dropdown-item text-danger" href="#">Déconnexion</a>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</div>
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#"></a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Profil
+						</a>
+						<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" style="border-radius: 20px;">
+							<li>
+								<a class="dropdown-item" href="#">
+									</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="#"></a>
+							</li>
+							<li><hr class="dropdown-divider"></li>
+							<li>
+								<a class="dropdown-item text-danger" href="{{path('app_logout')}}">Déconnexion</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
 			</div>
-		</nav>
+		</div>
+	</nav>
 
 		<div class="container dashboard-container">
 			<h1 class="mb-4">Tableau de Bord - Ordre des Pharmacies</h1>
@@ -139,7 +139,7 @@
 							<h5 class="card-title">Total Pharmacies</h5>
 							<b>
 								<strong>
-									<h2 class="nombre-pharmacies">__ 12 __</h2>
+									<h2 class="nombre-pharmacies">__ {{ pharmacie|length}} __</h2>
 								</strong>
 							</b>
 						</div>
@@ -149,7 +149,7 @@
 							<h5 class="card-title">Total Plannings</h5>
 							<b>
 								<strong>
-									<h2 class="nombre-pharmacies">__ 34 __</h2>
+									<h2 class="nombre-pharmacies">__ {{ Planning|length}} __</h2>
 								</strong>
 							</b>
 						</div>
@@ -159,7 +159,7 @@
 							<h5 class="card-title">Total Notifications</h5>
 							<b>
 								<strong>
-									<h2 class="nombre-pharmacies">__ 5 __</h2>
+									<h2 class="nombre-pharmacies">__ {{ Notification|length}} __</h2>
 								</strong>
 							</b>
 						</div>
@@ -167,18 +167,9 @@
 				</div>
 			</div>
 
-
-			<div class="row">
-				<div class="col-md-4">
-					<div class="card dashboard-card" style="border-radius: 20px;">
-						<div class="card-body">
-							<h5 class="card-title">Importer Planning de Garde</h5>
-							<p class="card-text">Importer un fichier Excel pour planifier les pharmacies de garde.</p>
-							<a href="{{ path('app_importplanning') }}" class="btn btn-primary" style="border-radius: 20px; background: #0839CF;">Importer Planning</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
+<div class="row justify-content-center">
+			
+                <div class="col-md-4">
 					<div class="card dashboard-card" style="border-radius: 20px;">
 						<div class="card-body">
 							<h5 class="card-title">Voir et Gérer Planning de Garde</h5>
@@ -187,6 +178,10 @@
 						</div>
 					</div>
 				</div>
+
+
+
+			
 				<div class="col-md-4">
 					<div class="card dashboard-card" style="border-radius: 20px; position: absolute;">
 						<div class="card-body">

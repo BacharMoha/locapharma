@@ -65,11 +65,11 @@
 						<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" style="border-radius: 20px;">
 							<li>
 								<a class="dropdown-item" href="#">
-									Bachar</a>
+									admin</a>
 							</li>
 							<li>
 								<a class="dropdown-item" href="#">
-									bachar@example.com</a>
+									admin@gmail.com</a>
 							</li>
 							<li><hr class="dropdown-divider"></li>
 							<li>
@@ -95,6 +95,7 @@
 			<thead>
 				<tr>
 					<th>#</th>
+					<th>image</th>
 					<th>Nom de la Pharmacie</th>
 					<th>Adresse</th>
 					<th>Email</th>
@@ -103,28 +104,78 @@
 			</thead>
 			<tbody
 				id="pharmacyTable">
-				{# {% for pharmacie in pharmacies %} #}
+				 {% for pharmacie in pharmacies %} 
 				<tr>
 					<td>#</td>
-					<td>Pharmacie ABC</td>
-					<td>Adresse de la pharmacie</td>
-					<td>email@pharmacie.com</td>
+					<td>{% if pharmacie.image %}
+								<img src="{{ asset('images/' ~ pharmacie.image) }}" alt="Pharmacy Icon" style="width: 100px; ">
+							{% else %}	
+								<img src="{{ asset('images/pp.jpg') }}" alt="Pharmacy Icon" style="width: 100px; ">
+							{% endif %}</td>
+					<td>{{pharmacie.nomPharma}}</td>
+					<td>{{pharmacie.addpharma}}</td>
+					<td>{{pharmacie.email}}</td>
 					<td>
-						<a href="{{ path('app_modificationinfopharma') }}" class="btn btn-edit" style="border-radius: 20px;">Modifier</a>
-						<a href="#" class="btn btn-delete" style="border-radius: 20px;">Supprimer</a>
-					</td>
+						<a href=" {{ path('app_modificationinfopharma', { 'id': pharmacie.id }) }}" class="btn btn-edit" style="border-radius: 20px;float:left">Modifier</a>
+ <form action="{{ path('pharmacie_delete', { 'id': pharmacie.id }) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette pharmacie ?');">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ pharmacie.id) }}">
+                <button type="submit" class="btn btn-danger" style="border-radius: 20px;">Supprimer</button>
+            </form>					</td>
 				</tr>
-				{# {% endfor %} #}
+				 {% endfor %} 
 			</tbody>
 		</table>
-
-		<a href="{{ path('app_admingenerale') }}" class="btn btn-secondary w-100 mt-3" style="border-radius: 20px;">Retour au Tableau de Bord</a>
+<div class="d-flex justify-content-between align-items-center">
+			<a href="{{ path('app_admingenerale') }}" class="btn btn-secondary mt-3" style="border-radius: 20px;">Retour au Tableau de Bord</a>
+			<nav>
+				<ul id="pagination" class="pagination justify-content-center mt-3">
+					<!-- Les boutons de pagination seront ajoutés ici dynamiquement -->
+				</ul>
+			</nav>
+		</div>
 
 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
 		<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
 		<script>
+
+document.addEventListener('DOMContentLoaded', function () {
+				const rowsPerPage = 5; // Nombre de lignes par page
+				const rows = document.querySelectorAll('#pharmacyTable tr');
+				const paginationElement = document.getElementById('pagination');
+				const pageCount = Math.ceil(rows.length / rowsPerPage);
+				let currentPage = 1;
+
+				function displayPage(page) {
+					const start = (page - 1) * rowsPerPage;
+					const end = start + rowsPerPage;
+
+					rows.forEach((row, index) => {
+						row.style.display = (index >= start && index < end) ? '' : 'none';
+					});
+				}
+
+				function setupPagination() {
+					paginationElement.innerHTML = '';
+
+					for (let i = 1; i <= pageCount; i++) {
+						const li = document.createElement('li');
+						li.className = 'page-item' + (i === currentPage ? ' active' : '');
+						li.innerHTML = `<a href="#" class="page-link">${i}</a>`;
+						li.addEventListener('click', function () {
+							currentPage = i;
+							displayPage(currentPage);
+							setupPagination();
+						});
+						paginationElement.appendChild(li);
+					}
+				}
+
+				displayPage(currentPage);
+				setupPagination();
+			});
+
 			document.getElementById('search').addEventListener('keyup', function () {
 let filter = this.value.toLowerCase();
 let rows = document.querySelectorAll('#pharmacyTable tr');

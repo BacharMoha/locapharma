@@ -61,14 +61,15 @@
 	</nav>
 	<div class="container form-container">
 		<h1>Créer une Notification</h1>
-		<form method="post">
+		<form method="post" action="">
+				<input type="hidden" class="form-control" id="notificationTitle" name="notification_title" value="{{ notification.id }}" >
 			<div class="mb-3">
 				<label for="notificationTitle" class="form-label">Titre de la Notification</label>
-				<input type="text" class="form-control" id="notificationTitle" name="notification_title" value="#####" required>
+				<input type="text" class="form-control" id="notificationTitle" name="notification_title" value="{{ notification.title }}" required>
 			</div>
 			<div class="mb-3">
 				<label for="notificationBody" class="form-label">Contenu de la Notification</label>
-				<textarea class="form-control" id="notificationBody" name="notification_body" rows="4" required>########</textarea>
+				<textarea class="form-control" id="notificationBody" name="notification_body" rows="4" required>{{ notification.body }}</textarea>
 			</div>
 			<button type="submit" class="btn btn-primary w-100" style="border-radius: 15px; background:  #0839CF;border-radius: 15px; background:  #0839CF;">Modifier notification</button>
 

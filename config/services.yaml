@@ -1,11 +1,14 @@
 # config/services.yaml
 parameters:
+    medicaments_directory: '%kernel.project_dir%/public/images'
 
 services:
     _defaults:
         autowire: true
         autoconfigure: true
         public: false
+    App\Service\GeocodingService:
+        class: App\Service\GeocodingService
 
     App\:
         resource: '../src/'

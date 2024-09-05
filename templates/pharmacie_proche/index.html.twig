@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacie la plus proche</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 500px;
+        }
+    </style>
+    <style>
+
+
+				body {
+					min-height: 100vh;
+					display: flex;
+					flex-direction: column;
+				}
+
+				main {
+					flex: 1;
+				}
+
+				header {
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					padding: 10px 0;
+				}
+
+				h1 {
+					color: #0056b3;
+					font-size: 30px;
+				}
+
+				.notifications img {
+					width: 24px;
+					height: 24px;
+				}
+
+				.pharmacy-list {
+					list-style-type: none;
+					padding: 0;
+					margin: 20px 0;
+				}
+
+				.pharmacy-item {
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					background-color: #fff;
+					padding: 10px 20px;
+					border-radius: 25px;
+					margin-bottom: 10px;
+					box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+					position: relative;
+				}
+
+				.pharmacy-item img {
+					width: 70px;
+					height: 70px;
+				}
+
+
+				.nmPh {
+					font-weight: 900;
+					font-size: 23px;
+					flex-grow: 1;
+					top: 18px;
+					font-family: "Blippo", fantasy;
+					color: #0056b3;
+				}
+
+				.nmMdc {
+					display: block;
+
+					margin-top: 10%;
+					font-size: 17px;
+					color: black;
+					font-family: "Comic Sans MS", cursive, sans-serif;
+
+					padding: 2%;
+					border-radius: 30px;
+				}
+
+				.bottom-nav {
+					display: flex;
+					justify-content: space-around;
+					align-items: center;
+					padding: 10px 0;
+					background-color: #fff;
+					border-top: 1px solid #ddd;
+					position: fixed;
+					bottom: 0;
+					width: 100%;
+					height: 60px;
+					box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+				}
+
+				.bottom-nav a {
+					color: #0056b3;
+					text-decoration: none;
+					font-size: 14px;
+					text-align: center;
+				}
+
+				.nav-item {
+					text-align: center;
+					flex: 1;
+				}
+
+				.nav-item svg {
+					display: block;
+					margin: 0 auto 5px;
+					text-align: center;
+				}
+
+				.nav-item span {
+					display: block;
+					font-size: 12px;
+					color: #333;
+				}
+
+				#btn-insponible {
+					background: red;
+					font-size: 14px;
+				}
+
+				main {
+					margin-top: 5%;
+				}
+
+				.search-bar {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+				}
+
+				.search-bar input {
+					padding: 10px;
+					border-radius: 25px;
+					border: 1px solid #0839CF;
+					width: 100%;
+					box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+				}
+
+				.search-btn {
+					background-color: transparent;
+					border: none;
+					margin-left: -35px;
+				}
+				@media(max-width: 992px) {
+					header {
+						flex-direction: column;
+					}
+
+					.search-bar input {
+						width: 100%;
+					}
+
+					#locfr {
+						margin-left: -100%;
+					}
+
+					.notifications {
+						margin-top: -10%;
+						position: absolute;
+						margin-left: 55%;
+					}
+				}
+
+				@media(max-width: 768px) {
+					.pharmacy-item {
+						flex-direction: column;
+						align-items: flex-start;
+					}
+
+					.nmPh,
+					.nmMdc {
+						font-size: 16px;
+					}
+
+					.btn-disponible {
+						width: 100%;
+						text-align: center;
+						margin-top: 10px;
+					}
+				}
+
+				@media(max-width: 576px) {
+					.search-bar input {
+						width: 100%;
+					}
+
+					.bottom-nav {
+						flex-direction: column;
+						height: auto;
+					}
+
+					.nav-item {
+						margin-bottom: 10px;
+					}
+
+					.nav-item span {
+						font-size: 10px;
+					}
+
+					.notifications {
+						margin-top: 10px;
+					}
+				}
+				@media(max-width:1492px) {
+					footer {
+						margin-left: -13%;
+						position: relative;
+
+					}
+				}
+				@media(max-width:1448px) {
+					footer {
+						margin-left: -13%;
+						position: relative;
+
+					}
+				}
+				footer {
+					position: relative; /* ou fixed si vous voulez qu'il reste en bas */
+					width: 100%;
+					margin: 0; /* Supprimez les marges négatives */
+					padding: 10px 0;
+					background-color: #fff;
+					text-align: center;
+
+					bottom: 0; /* Garder le footer en bas */
+				}
+
+				@media(max-width: 992px) {
+					footer {
+						margin-left: 0;
+						padding: 10px;
+						text-align: center;
+					}
+				}
+
+				.description {
+					margin-left: 11%; /* Ajuste la valeur selon la quantité de décalage que tu souhaites */
+					color: #6c757d; /* Conserve la couleur du texte comme texte-muted */
+					font-size: 14px; /* Ajuste la taille de la police si nécessaire */
+					line-height: 1.5; /* Ajuste l'espacement entre les lignes pour une meilleure lisibilité */
+					margin-top: -4%;
+
+				}
+				.btn-primary {
+					border-radius: 35%;
+					transition: 2s;
+				}
+				.card-title {
+					font-family: 'Kaushan Script', cursive;
+					-webkit-text-stroke: 1px #0839CF;
+					color: #0839CF;
+				}
+				.notifications {
+    position: relative;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+				.modal-content {
+					border-radius: 20px;
+					padding: 30px;
+					box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+				}
+
+				.modal-title {
+					font-family: "Luminari", "Comic Sans MS", cursive, sans-serif;
+					font-size: 1.3rem;
+					color: #0839CF;
+				}
+
+				.modal-body .notification-date {
+					font-family: 'Arial', sans-serif;
+					font-size: 1rem;
+					color: #666666;
+				}
+
+				.modal-body .notification-body {
+					font-family: 'Arial', sans-serif;
+					font-size: 1rem;
+					margin-top:10px;
+					color: #333333;
+				}
+
+				.btn-primary {
+					border-radius: 20px;
+					background-color: #0839CF;
+					color: #ffffff;
+				}
+
+				.btn-primary:hover {
+					background-color: #052a94;
+				}
+				.modal-backdrop {
+					background-color: rgba(0, 0, 0, 0.3); /* Ajustez l'opacité ici */
+				}
+			</style>
+</head>
+<body>
+    
+   
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script>
+        // Détection de la position de l'utilisateur
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const userLat = position.coords.latitude;
+            const userLng = position.coords.longitude;
+
+            // Initialisation de la carte
+            const map = L.map('map').setView([userLat, userLng], 13);
+
+            // Ajout des tuiles de la carte
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            // Ajout d'un marqueur pour l'utilisateur
+            L.marker([userLat, userLng]).addTo(map)
+                .bindPopup('Vous êtes ici')
+                .openPopup();
+
+            // Récupération des pharmacies à partir du backend
+            fetch('{{ path('api_pharmacies') }}')
+                .then(response => response.json())
+                .then(pharmacies => {
+                    let closestPharmacy = null;
+                    let minDistance = Infinity;
+
+                    pharmacies.forEach(pharmacie => {
+                        const pharmacyLat = pharmacie.latitude;
+                        const pharmacyLng = pharmacie.longitude;
+
+                        // Calcul de la distance entre l'utilisateur et la pharmacie
+                        const distance = map.distance([userLat, userLng], [pharmacyLat, pharmacyLng]);
+
+                        if (distance < minDistance) {
+                            minDistance = distance;
+                            closestPharmacy = pharmacie;
+                        }
+
+                        // Ajout de marqueurs pour les pharmacies
+                        L.marker([pharmacyLat, pharmacyLng]).addTo(map)
+                            .bindPopup(`<b>${pharmacie.nom}</b><br>Distance: ${distance.toFixed(2)} mètres`);
+                    });
+
+                    // Tracer une ligne vers la pharmacie la plus proche
+                    if (closestPharmacy) {
+                        const closestPharmacyLat = closestPharmacy.latitude;
+                        const closestPharmacyLng = closestPharmacy.longitude;
+
+                        // Centrer la carte sur la pharmacie la plus proche avec un zoom plus élevé
+                        map.setView([closestPharmacyLat, closestPharmacyLng], 16); // Zoom augmenté à 16
+
+                        // Tracer une ligne entre la position actuelle et la pharmacie la plus proche
+                        L.polyline([[userLat, userLng], [closestPharmacyLat, closestPharmacyLng]], {
+                            color: 'blue',
+                            weight: 3,
+                            opacity: 0.7,
+                        }).addTo(map);
+
+                        alert(`La pharmacie la plus proche est ${closestPharmacy.nom} à ${minDistance.toFixed(2)} mètres.`);
+                    }
+                });
+        }, function(error) {
+            alert('Erreur lors de la détection de la position : ' + error.message);
+        }, {
+			enableHighAccuracy: true,
+			timeout: 5000,
+			maximumAge: 0
+		});
+    </script>
+    <footer>
+			<nav class="bottom-nav">
+				<a href="{{ path('app_index') }}" style="margin-left: 5%;">
+								<img src="{{ asset('images/LocaPharma_color.png') }}" id="locfr" width="99" height="40" alt="Pharmacy Icon">
+							</a>
+				
+			</nav>
+		</footer>
+</body>
+</html>

@@ -61,7 +61,7 @@
 	</nav>
 	<div class="container form-container">
 		<h1>Créer une Notification</h1>
-		<form method="post">
+		<form method="post" action="{{ path('app_create_notification') }}">
 			<div class="mb-3">
 				<label for="notificationTitle" class="form-label">Titre de la Notification</label>
 				<input type="text" class="form-control" id="notificationTitle" name="notification_title" required>

@@ -265,6 +265,62 @@
 					-webkit-text-stroke: 1px #0839CF;
 					color: #0839CF;
 				}
+				.notifications {
+    position: relative;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+				.modal-content {
+					border-radius: 20px;
+					padding: 30px;
+					box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+				}
+
+				.modal-title {
+					font-family: "Luminari", "Comic Sans MS", cursive, sans-serif;
+					font-size: 1.3rem;
+					color: #0839CF;
+				}
+
+				.modal-body .notification-date {
+					font-family: 'Arial', sans-serif;
+					font-size: 1rem;
+					color: #666666;
+				}
+
+				.modal-body .notification-body {
+					font-family: 'Arial', sans-serif;
+					font-size: 1rem;
+					margin-top:10px;
+					color: #333333;
+				}
+
+				.btn-primary {
+					border-radius: 20px;
+					background-color: #0839CF;
+					color: #ffffff;
+				}
+
+				.btn-primary:hover {
+					background-color: #052a94;
+				}
+				.modal-backdrop {
+					background-color: rgba(0, 0, 0, 0.3); /* Ajustez l'opacité ici */
+				}
 			</style>
 			<nav style="margin-top: -12%; ">
 				<div class="container">
@@ -275,7 +331,7 @@
 							</a>
 						</div>
 						<div class="col-md-4 text-center my-2 my-md-0">
-&							<div class="search-bar">
+						<div class="search-bar">
 								<input type="text" placeholder="Rechercher une pharmacie" id="searchPharmacie" class="form-control"/>
 								<button class="search-btn btn btn-link p-0">
 									<i class="bi bi-search"></i>
@@ -285,29 +341,63 @@
 								</button>
 							</div>
 						</div>
+						<!-- templates/notification/index.html.twig -->
 						<div class="col-md-4 text-center text-md-end">
-							<a href="{{ path('app_notification') }}">
-								<div class="notifications">
+							<a href="" data-bs-toggle="modal" data-bs-target="#notificationModal">
+								<div class="notifications position-relative">
 									<i class="bi bi-bell"></i>
 
-									<svg style="color: #0839CF;" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bell-fill" viewbox="0 0 16 16">
+									<svg style="color: #0839CF;" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
 										<path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2m.995-14.901a1 1 0 1 0-1.99 0A5 5 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901"/>
 									</svg>
 
+									{% if notification_count > 0 %}
+										<span class="notification-badge">{{ notification_count }}</span>
+									{% endif %}
 								</div>
 							</a>
 						</div>
+						
+
+						<div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="notificationModalLabel" style="font-size: 15px;">Tous les notification</h5>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+							{% for notification in notifications %}
+									<div class="modal-body">
+										<p class="modal-title " >{{ notification.title }}</p>
+										<p class="notification-body">{{ notification.body }}</p>
+										<p class="notification-date" style="float:right;margin-top:25px;">Publié le {{ notification.createdAt|date('d M Y') }}</p>
+									</div>
+									<hr>
+								{% else %}
+										<p>Aucune notification disponible.</p>
+									{% endfor %}
+									<div class="modal-footer">
+										<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Quitter</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
 					</header>
 					<main class="container mt-4" id="pharamacieList">
+					{% for pharmacies in pharmacie %}
+						
 						<ul class="pharmacy-list list-unstyled" id="pharamacieList">
 							<li class="pharmacy-item d-flex flex-column align-items-start mb-4">
+							{% if pharmacies.image %}
+								<img src="{{ asset('images/' ~ pharmacies.image) }}" alt="Pharmacy Icon" style="width: 100px; height: 100px; border-radius: 25%;">
+							{% else %}	
 								<img src="{{ asset('images/pp.jpg') }}" alt="Pharmacy Icon" style="width: 100px; height: 100px;">
-								<span class="nmPh font-weight-bold">Pharmacie Yassine</span>
-								<p class="description">Votre pharmacie de confiance avec une large gamme de produits.
-																											            Votre pharmacie de confiance avec une large gamme de produits.
-																											            Votre pharmacie de confiance avec une large gamme de produits.
-																											            Votre pharmacie de confiance avec une large gamme de produits.</p>
-								<a class="aller btn btn-outline-primary mt-2" href="{{ path('info_pharmacie') }}" style="border-radius: 30%;">
+							{% endif %}
+								<span class="nmPh font-weight-bold" >{{ pharmacies.NomPharma }}</span>
+								<p class="description"> {{ pharmacies.description }}	</p>
+								<a class="aller btn btn-outline-primary mt-2" href="{{ path('app_infopharmacie',{'id': pharmacies.id}) }}" style="border-radius: 30%;">
 									Aller à...
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewbox="0 0 16 16">
 										<path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
@@ -316,40 +406,8 @@
 							</li>
 
 						</ul>
-						<ul class="pharmacy-list list-unstyled">
-							<li class="pharmacy-item d-flex flex-column align-items-start mb-4">
-								<img src="{{ asset('images/pp.jpg') }}" alt="Pharmacy Icon" style="width: 100px; height: 100px;">
-								<span class="nmPh font-weight-bold">Pharmacie Traleni</span>
-								<p class="description">Votre pharmacie de confiance avec une large gamme de produits.
-																											            Votre pharmacie de confiance avec une large gamme de produits.
-																											            Votre pharmacie de confiance avec une large gamme de produits.
-																											            Votre pharmacie de confiance avec une large gamme de produits.</p>
-								<a class="aller btn btn-outline-primary mt-2" href="{{ path('info_pharmacie') }}" style="border-radius: 30%;">
-									Aller à...
-									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewbox="0 0 16 16">
-										<path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
-									</svg>
-								</a>
-							</li>
-
-						</ul>
-						<ul class="pharmacy-list list-unstyled">
-							<li class="pharmacy-item d-flex flex-column align-items-start mb-4">
-								<img src="{{ asset('images/pp.jpg') }}" alt="Pharmacy Icon" style="width: 100px; height: 100px;">
-								<span class="nmPh font-weight-bold">Pharmacie Oasis</span>
-								<p class="description">Votre pharmacie de confiance avec une large gamme de produits.
-																											            Votre pharmacie de confiance avec une large gamme de produits.
-																											            Votre pharmacie de confiance avec une large gamme de produits.
-																											            Votre pharmacie de confiance avec une large gamme de produits.</p>
-								<a class="aller btn btn-outline-primary mt-2" href="{{ path('info_pharmacie') }}" style="border-radius: 30%;">
-									Aller à...
-									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewbox="0 0 16 16">
-										<path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
-									</svg>
-								</a>
-							</li>
-
-						</ul>
+						{% endfor %}
+					
 
 
 						<div id="pharamacieLi" style="display: none;">
@@ -362,6 +420,9 @@
 		</main>
 		<footer>
 			<nav class="bottom-nav">
+				<a href="{{ path('app_index') }}" style="margin-left: 5%;">
+								<img src="{{ asset('images/LocaPharma_color.png') }}" id="locfr" width="99" height="40" alt="Pharmacy Icon">
+							</a>
 				<a href="{{ path('app_index') }}" class="nav-item">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-house-fill" viewbox="0 0 16 16">
 						<path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
@@ -369,7 +430,7 @@
 					</svg>
 					<span>Accueil</span>
 				</a>
-				<a href="#" class="nav-item">
+				<a href="{{ path('pharmacie_proche') }}" class="nav-item">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-geo-alt-fill" viewbox="0 0 16 16">
 						<path fill-rule="evenodd" d="M12 6a4 4 0 1 0-8 0 4 4 0 0 0 8 0ZM8 0a6 6 0 0 0-6 6c0 1.7.924 3.68 2.287 5.329.678.843 1.454 1.593 2.155 2.146.354.28.688.528.958.711.134.091.252.165.345.217l.066.036.017.01h.002l.001.001s0-.001.4.202a.25.25 0 0 0 .234 0s.4-.202.4-.202l.002-.001h.001l.017-.01.066-.036c.093-.052.211-.126.345-.217.27-.183.604-.43.958-.711.701-.553 1.477-1.303 2.155-2.146C13.076 9.68 14 7.7 14 6a6 6 0 0 0-6-6Z"/>
 					</svg>
@@ -387,14 +448,10 @@
 					</svg>
 					<span>Recherche de médicament</span>
 				</a>
-				<a href="#" class="nav-item">
-					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-fill" viewbox="0 0 16 16">
-						<path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-					</svg>
-					<span>Profile</span>
-				</a>
+				
 			</nav>
 		</footer>
+        
 	</div>
 	<script>
 		document.getElementById('searchPharmacie').addEventListener('keyup', function () {

@@ -64,6 +64,10 @@
 				<input type="file" class="form-control" id="medicamentImage" name="image" >
 			</div>
 			<div class="mb-3">
+				<label for="medicamentName" class="form-label">Nom du Médicament</label>
+				<input type="text" class="form-control" id="medicamentName" name="prix" value="{{medicament.prix}}" required>
+			</div>
+			<div class="mb-3">
 				<label for="medicamentDescription" class="form-label">Description</label>
 				<textarea class="form-control" id="medicamentDescription" name="description" rows="4" required>{{medicament.description}}
 				</textarea>

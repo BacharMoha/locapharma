@@ -153,10 +153,12 @@ class AdminController extends AbstractController
         if ($request->isMethod('POST')) {
             $name = $request->request->get('name');
             $description = $request->request->get('description');
+            $prix = $request->request->get('prix');
             
 
             // Mise à jour des données de la medicament
             $medicament->setNomMedoc($name);
+            $medicament->setprix($prix);
             $medicament->setdescription($description);
           
 

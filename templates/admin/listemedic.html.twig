@@ -109,7 +109,7 @@
 					<td>{{ medicament.isDisponible ? 'Disponible' : 'Non disponible' }}</td>
 					<td>
 						<a href="{{ path('app_modifmedic', { 'id': medicament.id }) }}" class="btn btn-edit" style="border-radius: 20px; float:left">Modifier</a>
- <form action="{{ path('pharmacie_delete', { 'id': medicament.id }) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette pharmacie ?');">
+ <form action="{{ path('medicament_delete', { 'id': medicament.id }) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette medicament ?');">
                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ medicament.id) }}">
                 <button type="submit" class="btn btn-danger" style="border-radius: 20px; float:left">Supprimer</button>
             </form>						 <a href="{{ path('toggle_disponibilite', {id: medicament.id}) }}" class="btn btn-warning">

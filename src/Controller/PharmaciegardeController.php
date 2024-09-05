@@ -124,7 +124,7 @@ class PharmaciegardeController extends AbstractController
 
         $this->addFlash('success', 'Planning supprimé avec succès.');
 
-        return $this->redirectToRoute('pharmacie_garde');
+        return $this->redirectToRoute('app_voirplanning');
     }
 }
 

@@ -114,14 +114,14 @@
                     <span class="input-icon">
                         <i class="fas fa-envelope"></i>
                     </span>
-                    <input type="email" value="{{ last_username }}" name="_username" id="inputEmail" required autofocus placeholder="Votre Email">
+                    <input type="email" value="{{ last_username }}" name="username" id="inputEmail" required autofocus placeholder="Votre Email">
                 </div>
 
                 <div class="input-container">
                     <span class="input-icon">
                         <i class="fas fa-lock" id="togglePassword"></i>
                     </span>
-                    <input type="password" name="_password" id="password" placeholder="Mot de passe" required>
+                    <input type="password" name="password" id="password" placeholder="Mot de passe" required>
                 </div>
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
@@ -133,43 +133,42 @@
 </div>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    // Identifiants pré-définis
-    const predefinedUsers = [
-        { email: 'admin@gmail.com', password: 'admin' },
-        { email: 'user@gmail.com', password: 'user' }
-    ];
-
     const form = document.querySelector('form');
     const emailInput = document.querySelector('#inputEmail');
     const passwordInput = document.querySelector('#password');
 
-    form.addEventListener('submit', function (event) {
-        event.preventDefault(); // Empêcher la soumission par défaut du formulaire
+    form.addEventListener('submit', async function (event) {
+        event.preventDefault(); // Empêche la soumission par défaut du formulaire
 
         const email = emailInput.value;
         const password = passwordInput.value;
 
-        // Vérification côté client avec les identifiants pré-définis
-        const user = predefinedUsers.find(user => user.email === email && user.password === password);
+        try {
+            // Envoyer la requête POST avec email et password
+            const response = await fetch('/ordrelogin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
 
-        if (user) {
-            // Connexion réussie avec les identifiants pré-définis
-            window.location.href = '/admin/admingener'; // Redirection ou autre action
-        } 
-        
-    });
+            const result = await response.json(); // Récupère la réponse en JSON
 
-    // Gestion du basculement du mot de passe
-    const togglePassword = document.querySelector('#togglePassword');
-    const password = document.querySelector('#password');
-
-    togglePassword.addEventListener('click', function () {
-        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-        password.setAttribute('type', type);
-        this.classList.toggle('fa-eye');
-        this.classList.toggle('fa-eye-slash');
+            if (response.ok) {
+                // Si la connexion est réussie, rediriger l'utilisateur en fonction de la réponse
+                window.location.href = result.redirect;
+            } else {
+                // Afficher un message d'erreur si la connexion échoue
+                alert(result.message || 'Identifiants incorrects.');
+            }
+        } catch (error) {
+            console.error('Erreur:', error);
+            alert('Une erreur s\'est produite.');
+        }
     });
 });
+
 </script>
 
 

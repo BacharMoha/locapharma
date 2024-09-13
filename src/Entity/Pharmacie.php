@@ -63,6 +63,12 @@ class Pharmacie implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $heureferme = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $phonewh = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $linkfac = null;
+
     // Autres propriétés et méthodes...
 
 
@@ -277,6 +283,30 @@ class Pharmacie implements UserInterface, PasswordAuthenticatedUserInterface
     public function setHeureferme(?\DateTimeInterface $heureferme): static
     {
         $this->heureferme = $heureferme;
+
+        return $this;
+    }
+
+    public function getPhonewh(): ?string
+    {
+        return $this->phonewh;
+    }
+
+    public function setPhonewh(?string $phonewh): static
+    {
+        $this->phonewh = $phonewh;
+
+        return $this;
+    }
+
+    public function getLinkfac(): ?string
+    {
+        return $this->linkfac;
+    }
+
+    public function setLinkfac(?string $linkfac): static
+    {
+        $this->linkfac = $linkfac;
 
         return $this;
     }

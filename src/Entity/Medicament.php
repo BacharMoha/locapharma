@@ -28,8 +28,7 @@ class Medicament
     #[ORM\ManyToMany(targetEntity: Pharmacie::class, inversedBy: 'medicaments')]
     private Collection $pharmacies;
 
-    #[ORM\Column]
-    private ?int $prix = null;
+    
 
     #[ORM\Column(length: 255)]
     private ?string $image = null;
@@ -110,17 +109,7 @@ class Medicament
         return $this->pharmacies;
     }
 
-    public function getPrix(): ?int
-    {
-        return $this->prix;
-    }
 
-    public function setPrix(int $prix): static
-    {
-        $this->prix = $prix;
-
-        return $this;
-    }
 
     public function getImage(): ?string
     {

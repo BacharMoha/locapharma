@@ -24,5 +24,8 @@ login:
     path: /log-in
     controller: App\Controller\LoginController::log_in
 
+# favicon:
+#   path: /favicon.ico
+#   controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::urlRedirect
 
 

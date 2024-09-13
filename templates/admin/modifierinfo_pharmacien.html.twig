@@ -81,7 +81,14 @@
 				<label for="pharmacienPhone" class="form-label">Numéro de Téléphone</label>
 				<input type="text" class="form-control" id="pharmacienPhone" name="phone" value="{{ pharmacie.tel }}" required>
 			</div>
-			
+			<div class="mb-3">
+				<label for="pharmacienPhone" class="form-label">Numéro de Téléphone whatsapp</label>
+				<input type="text" class="form-control" id="pharmacienPhone" name="phonewh" value="{{ pharmacie.phonewh }}" >
+			</div>
+			<div class="mb-3">
+				<label for="pharmacienPhone" class="form-label">Lien facebook</label>
+				<input type="text" class="form-control" id="pharmacienPhone" name="link" value="{{ pharmacie.linkfac }}" >
+			</div>
 			<div class="mb-3">
 				<label for="pharmacienPhone" class="form-label">Description</label>
 				<textarea  class="form-control" id="pharmacienPhone" name="description" value="" required>{{ pharmacie.description }}</textarea>

@@ -56,6 +56,8 @@ class AdminController extends AbstractController
             $pharma->setAddpharma($request->request->get('adresse'));
             $pharma->setTel($request->request->get('tel'));
             $pharma->setEmail($request->request->get('email'));
+            $pharma->setPhonewh($request->request->get('telwh'));
+            $pharma->setLinkfac($request->request->get('facebook'));
             $pharma->setDescription($request->request->get('description'));
             $pharma->setRoles(['USER_PHARMACIEN']);
             $pharma->setAddmaps($address);
@@ -101,7 +103,6 @@ class AdminController extends AbstractController
         if ($request->isMethod('POST')) {
             $medicament->setNomMedoc($request->request->get('name'));
             $medicament->setDescription($request->request->get('description'));
-            $medicament->setPrix($request->request->get('prix'));
 
             // Gestion de l'image uploadée
             $imageFile = $request->files->get('image');
@@ -153,12 +154,10 @@ class AdminController extends AbstractController
         if ($request->isMethod('POST')) {
             $name = $request->request->get('name');
             $description = $request->request->get('description');
-            $prix = $request->request->get('prix');
             
 
             // Mise à jour des données de la medicament
             $medicament->setNomMedoc($name);
-            $medicament->setprix($prix);
             $medicament->setdescription($description);
           
 
@@ -352,6 +351,8 @@ class AdminController extends AbstractController
             $addmaps = $request->request->get('addmaps');
             $description = $request->request->get('description');
             $phone = $request->request->get('phone');
+            $link = $request->request->get('link');
+            $phonewh = $request->request->get('phonewh');
             $role = $request->request->get('role');
             $password = $request->request->get('password');
             $confirmPassword = $request->request->get('confirm_password');
@@ -372,6 +373,8 @@ class AdminController extends AbstractController
             $pharmacie->setAddmaps($addmaps);
             $pharmacie->setDescription($description);
             $pharmacie->setTel($phone);
+            $pharmacie->setlinkfac($link);
+            $pharmacie->setphonewh($phonewh);
            
             
          

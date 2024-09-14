@@ -16,6 +16,7 @@
 
 		<header class="row align-items-center">
 
+
 			<style>
 
 
@@ -23,6 +24,7 @@
 					min-height: 100vh;
 					display: flex;
 					flex-direction: column;
+
 				}
 
 				main {
@@ -44,9 +46,7 @@
 				.notifications img {
 					width: 24px;
 					height: 24px;
-
 				}
-
 
 				.pharmacy-list {
 					list-style-type: none;
@@ -71,26 +71,15 @@
 					height: 70px;
 				}
 
-				.btn-disponible {
-					background-color: #28a745;
-					color: white;
-					border: none;
-					padding: 8px 20px;
-					border-radius: 25px;
-					cursor: pointer;
-				}
-
-				.btn-disponible:hover {
-					background-color: #218838;
-				}
 
 				.nmPh {
 					font-weight: 900;
-					font-size: 23px;
+					font-size: 30px;
 					flex-grow: 1;
 					top: 18px;
 					font-family: "Blippo", fantasy;
 					color: #0056b3;
+					margin-left: 17%;
 				}
 
 				.nmMdc {
@@ -122,7 +111,7 @@
 				.bottom-nav a {
 					color: #0056b3;
 					text-decoration: none;
-					font-size: 14px;
+					font-size: 30px;
 					text-align: center;
 				}
 
@@ -142,19 +131,7 @@
 					font-size: 20px;
 					color: #333;
 				}
-				.strong {
-					font-size: 20px;
-					color: rgb(42, 63, 251);
-				}
-				.card-title {
-					font-family: "Brush Script MT", cursive;
-					text-align: center;
-					font-weight: bolder;
-					font-size: 48px;
-					color: #0839CF;
 
-
-				}
 				#btn-insponible {
 					background: red;
 					font-size: 14px;
@@ -184,12 +161,10 @@
 					margin-left: -35px;
 				}
 				@media(max-width: 992px) {
-					header {
-						flex-direction: column;
-					}
+
 
 					.search-bar input {
-						width: 100%;
+						width: 500%;
 					}
 
 					#locfr {
@@ -197,55 +172,16 @@
 					}
 
 					.notifications {
-
-						margin-top: -31%;
+						margin-top: -47.3%;
 						position: absolute;
-						margin-right: -99%;
-
+						margin-left: 178%;
 
 					}
+
+
 				}
 
-				@media(max-width: 768px) {
-					.pharmacy-item {
-						flex-direction: column;
-						align-items: flex-start;
-					}
 
-					.nmPh,
-					.nmMdc {
-						font-size: 16px;
-					}
-
-					.btn-disponible {
-						width: 100%;
-						text-align: center;
-						margin-top: 10px;
-					}
-				}
-
-				@media(max-width: 576px) {
-					.search-bar input {
-						width: 100%;
-					}
-
-					.bottom-nav {
-						flex-direction: column;
-						height: auto;
-					}
-
-					.nav-item {
-						margin-bottom: 10px;
-					}
-
-					.nav-item span {
-						font-size: 10px;
-					}
-
-					.notifications {
-						margin-top: 10px;
-					}
-				}
 				@media(max-width:1492px) {
 					footer {
 						margin-left: -13%;
@@ -260,7 +196,6 @@
 
 					}
 				}
-
 				footer {
 					position: relative; /* ou fixed si vous voulez qu'il reste en bas */
 					width: 100%;
@@ -268,7 +203,7 @@
 					padding: 10px 0;
 					background-color: #fff;
 					text-align: center;
-					box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+
 					bottom: 0; /* Garder le footer en bas */
 				}
 
@@ -277,49 +212,57 @@
 						margin-left: 0;
 						padding: 10px;
 						text-align: center;
+					}
+
+				}
+				@media(max-width: 1200px) {
+					p {
+
+						font-size: 30px;
+						padding-left: 40px; /* Ajuste la valeur selon la quantité de décalage que tu souhaites */
+
+					}
+					.aller {
 						font-size: xx-large;
+						width: 200px;
+						margin-left: 75%;
 					}
-					.notifications {
-						margin-left: 150px;
-						position: absolute;
+					.nmPh {
+						font-size: 45px;
 
-					}
-					.card-text {
-						font-size: 40px;
-					}
-					.nmp {
-						font-size: 40px;
-					}
-					.strong {
-						font-size: 40px;
-						color: rgb(42, 63, 251);
-						.card-title {
-							font-family: "Brush Script MT", cursive;
-							text-align: center;
-							font-weight: bolder;
-							font-size: 40px;
-							color: #0839CF;
-
-
-						}
 					}
 
 				}
 
 
 				.description {
-					margin-left: 11%; /* Ajuste la valeur selon la quantité de décalage que tu souhaites */
+					margin-left: 13%; /* Ajuste la valeur selon la quantité de décalage que tu souhaites */
 					color: #6c757d; /* Conserve la couleur du texte comme texte-muted */
-					font-size: 14px; /* Ajuste la taille de la police si nécessaire */
+					/* Ajuste la taille de la police si nécessaire */
 					line-height: 1.5; /* Ajuste l'espacement entre les lignes pour une meilleure lisibilité */
 					margin-top: -4%;
+					padding-left: 9 %%;
+					display: -webkit-box;
+					-webkit-line-clamp: 3; /* Afficher seulement 3 lignes */
+					-webkit-box-orient: vertical;
+					overflow: hidden;
+					text-overflow: ellipsis; /* Ajouter "..." à la fin du texte coupé */
+					max-height: 4.5em; /* Approximation de 3 lignes selon la taille de la ligne */
+					line-height: 1.5em; /* Hauteur de chaque ligne */
 
 				}
 				.btn-primary {
 					border-radius: 35%;
 					transition: 2s;
 				}
-
+				.card-title {
+					font-family: 'Kaushan Script', cursive;
+					-webkit-text-stroke: 1px #0839CF;
+					color: #0839CF;
+				}
+				.notifications {
+					position: relative;
+				}
 
 				.notification-badge {
 					position: absolute;
@@ -343,7 +286,7 @@
 				}
 
 				.modal-title {
-					font-family: "Luminari", "Comic Sans MS", cursive, sans-serif;
+					font-family: 'Arial', sans-serif;
 					font-size: 1.3rem;
 					color: #0839CF;
 				}
@@ -370,6 +313,10 @@
 				.btn-primary:hover {
 					background-color: #052a94;
 				}
+				.modal-backdrop {
+					background-color: rgba(0, 0, 0, 0.3); /* Ajustez l'opacité ici */
+				}
+				@media(max-width: 600px) {}
 				@media(max-width: 992px) {
 					footer {
 
@@ -380,28 +327,18 @@
 					}
 
 					.bottom-nav svg {
-						height: 40px;
-						width: 40px;
-						margin-left: -2%;
+						height: 50px;
+						width: 50px;
+
 					}
 					.bottom-nav {
 						height: 100px;
 
 					}
-					span {
-						margin-left: -82%;
-					}
+
 					.imgs {
 						height: 130px;
 						width: 130px;
-					}
-					.conta {
-						text-align: center;
-						margin-left: 45%;
-
-					}
-					.ccc {
-						display: none;
 					}
 					.modal-content {
 
@@ -425,22 +362,27 @@
 					.notificone {
 						height: 60px;
 						width: 60px;
-
 					}
 					.notification-badge {
 						font-size: 20px;
 						width: 28px;
 						height: 28px;
 						top: -10px;
-						right: 40.1px;
 					}
 					.imgl {
 						height: 120px;
 						width: 210px;
-						display: block;
-						position: relative;
 					}
+					.search-bar input {
+						height: 65px;
+						border-radius: 30px;
+						font-size: 23px;
+						min-width: 600px;
 
+					}
+					.messag-erreur {
+						margin-left: -20%;
+					}
 				}
 				@keyframes strongShake {
 					0% {
@@ -478,10 +420,117 @@
 					}
 				}
 
+
 				.vibrate-strong {
 					animation: strongShake 0.7s;
 					animation-iteration-count: 1;
 					transform-origin: top center; /* Fixer le sommet */
+				}
+
+
+				@media(max-width: 576px) {
+					.search-bar input {
+						width: 100%;
+					}
+
+					.bottom-nav {
+
+						height: auto;
+					}
+
+					.nav-item {
+						margin-bottom: 10px;
+					}
+
+					.nav-item span {
+						font-size: 10px;
+					}
+
+					.notifications {
+						margin-top: 10px;
+					}
+				}
+				.stron {
+					font-size: 20px;
+				}
+				.card-title {
+					font-size: 23px;
+				}
+				@media(max-width: 768px) {
+					.container {
+						min-width: 1200px;
+						padding: 4%;
+						font-size: xx-large;
+					}
+
+					.notifications {
+						margin-left: 100%;
+						margin-top: -13%;
+					}
+					.notification-badge {
+						font-size: 20px;
+						width: 28px;
+						height: 28px;
+						top: -10px;
+						margin-left: -25%;
+
+					}
+					.description {
+						font-size: 45px;
+					}
+					.nmPh {
+						font-size: 60px;
+
+					}
+					.search-bar input {
+						height: 70px;
+						border-radius: 40px;
+						font-size: 30px;
+						width: 60%;
+					}
+					.text-md-start {
+						margin-left: 10%;
+
+					}
+					.text-md-start img {
+						margin-left: 10%;
+						width: 300px;
+						height: 200px;
+					}
+					.bottom-nav span {
+						color: #0056b3;
+						text-decoration: none;
+						font-size: 25px;
+						margin-left: 5%;
+					}
+					.bottom-nav img {
+						width: 210px;
+						height: 210px;
+						margin-top: -40%;
+					}
+					.imgl {
+						margin-right: -15%;
+						height: 120px;
+						min-width: 35%;
+					}
+					.align-items-center {
+						margin-left: 0;
+						display: block;
+					}
+
+					.strong {
+						font-size: 35px;
+					}
+					.stron {
+						font-size: 35px;
+					}
+					.card-text {
+						font-size: 40px;
+					}
+					.card-title {
+						font-size: 45px;
+					}
+					
 				}
 			</style>
 			<nav style="margin-top: -12%;">
@@ -489,7 +538,7 @@
 					<header class="row align-items-center" style="margin-top: 10%;">
 						<div class="col-md-4 text-center text-md-start">
 							<a href="{{ path('app_index') }}">
-								<img class="imgl" src="{{ asset('images/iconelocapharna.png') }}" id="locfr" width="206" height="100" alt="Pharmacy Icon">
+								<img class="imgl" src="{{ asset('images/iconelocapharna.png') }}" id="locfr" width="210" height="110" alt="Pharmacy Icon">
 							</a>
 						</div>
 						<div class="col-md-4 text-center text-md-end">
@@ -538,7 +587,7 @@
 							<img src="{{ asset('images/grdph.jpeg') }}" alt="Medicament Icon" style=" border-radius: 5%; filter: blur(4px); opacity: 0.5;  height: 300px;">
 							<div class="card-body" style="margin-top: -5%; border-radius: 5%; padding: 7%;">
 								<center><img src="{{ asset('images/pharmacy-icon.jpg') }}" alt="Medicament Icon" style="   height: 180px;"></center>
-								<p class="card-title" style="">Pharmacie de Garde</p>
+								<p class="card-title" style="text-align: center;">Pharmacie de Garde</p><br>
 								{% if message %}
 									<b>
 										<p class="card-text" style="text-align: center; font-size:25px; color:red;">
@@ -551,21 +600,21 @@
 							</div>
 
 						{% else %}
-							<p class="card-text" style="text-align: center; ">La pharmacie de garde cette semaine est
-								<strong class="strong" style="f">{{ pharmacie.nomPharma }}</strong>. 
-																																					    Située en plein cœur de la ville, 
-																																					    cette pharmacie est ouverte pour répondre à vos besoins urgents en médicaments et en soins. 
-																																					    Elle sera à votre service du
-								<strong class="strong">{{ planning.dateDebut ? planning.dateDebut|date('H:i') : 'Non spécifié' }}
+							<p class="card-text" style="text-align: center; ">La pharmacie de garde cette semaine est la
+								<strong class="stron" style="color:#0839CF;">{{ pharmacie.nomPharma }}</strong>. 
+																																																																									    Située en plein cœur de la ville, 
+																																																																									    cette pharmacie est ouverte pour répondre à vos besoins urgents en médicaments et en soins. 
+																																																																									    Elle sera à votre service du
+								<strong class="strongs" style="color:#0839CF; font-size: px;">{{ planning.dateDebut ? planning.dateDebut|date('H:i') : 'Non spécifié' }}
 									à
 									{{ planning.dateFin ? planning.dateFin|date('H:i') : 'Non spécifié' }}</strong>, assurant une disponibilité continue pour vous 
-																																					    et vos proches.
+																																																																									    et vos proches.
 
 							</p>
 							<p class="card-text" style="text-align: center;  margin-top: 5%; ">
 								En cas de besoin, vous pouvez facilement contacter la pharmacie de garde avec
-																																	  le numéro de téléphone ci-dessous.
-								<strong class="strong">{{ pharmacie.nomPharma }}</strong>
+																																																																	  le numéro de téléphone ci-dessous.
+								<strong class="stron" style="color:#0839CF;">{{ pharmacie.nomPharma }}</strong>
 								se tient prête à vous assister avec professionnalisme et attention.
 							</p>
 
@@ -598,12 +647,12 @@
 						<path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"/>
 					</svg>
 					<span>Accueil</span>
-				</a> 
+				</a>
 				<a href="{{ path('pharmacie_proche') }}" class="nav-item">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-geo-alt-fill" viewbox="0 0 16 16">
 						<path fill-rule="evenodd" d="M12 6a4 4 0 1 0-8 0 4 4 0 0 0 8 0ZM8 0a6 6 0 0 0-6 6c0 1.7.924 3.68 2.287 5.329.678.843 1.454 1.593 2.155 2.146.354.28.688.528.958.711.134.091.252.165.345.217l.066.036.017.01h.002l.001.001s0-.001.4.202a.25.25 0 0 0 .234 0s.4-.202.4-.202l.002-.001h.001l.017-.01.066-.036c.093-.052.211-.126.345-.217.27-.183.604-.43.958-.711.701-.553 1.477-1.303 2.155-2.146C13.076 9.68 14 7.7 14 6a6 6 0 0 0-6-6Z"/>
 					</svg>
-					<span>Pharmacie proche</span>
+					<span class="idpharmacie">Pharmacie proche</span>
 				</a>
 				<a href="{{ path('pharmacie_garde') }}" class="nav-item">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" ç fill="currentColor" class="bi bi-clock-fill" viewbox="0 0 16 16">

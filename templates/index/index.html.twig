@@ -183,56 +183,17 @@
 
 				}
 
-				@media(max-width: 768px) {
-					.pharmacy-item {
-						flex-direction: column;
-						align-items: flex-start;
-					}
 
-					.nmPh,
-					.nmMdc {
-						font-size: 16px;
-					}
-
-					.btn-disponible {
-						width: 100%;
-						text-align: center;
-						margin-top: 10px;
-					}
-				}
-
-				@media(max-width: 576px) {
-					.search-bar input {
-						width: 100%;
-					}
-
-					.bottom-nav {
-						flex-direction: column;
-						height: auto;
-					}
-
-					.nav-item {
-						margin-bottom: 10px;
-					}
-
-					.nav-item span {
-						font-size: 10px;
-					}
-
-					.notifications {
-						margin-top: 10px;
-					}
-				}
 				@media(max-width:1492px) {
 					footer {
-						margin-left: -13%;
+						margin-left: -10%;
 						position: relative;
 
 					}
 				}
 				@media(max-width:1448px) {
 					footer {
-						margin-left: -13%;
+						margin-left: -10%;
 						position: relative;
 
 					}
@@ -357,11 +318,7 @@
 				.modal-backdrop {
 					background-color: rgba(0, 0, 0, 0.3); /* Ajustez l'opacité ici */
 				}
-				@media(max-width: 600px) {
-					footer {
-						display: none;
-					}
-				}
+				@media(max-width: 600px) {}
 				@media(max-width: 992px) {
 					footer {
 
@@ -372,17 +329,15 @@
 					}
 
 					.bottom-nav svg {
-						height: 40px;
-						width: 40px;
-						margin-left: -2%;
+						height: 50px;
+						width: 50px;
+
 					}
 					.bottom-nav {
 						height: 100px;
 
 					}
-					span {
-						margin-left: -82%;
-					}
+
 					.imgs {
 						height: 130px;
 						width: 130px;
@@ -468,11 +423,38 @@
 					}
 				}
 
+
 				.vibrate-strong {
 					animation: strongShake 0.7s;
 					animation-iteration-count: 1;
 					transform-origin: top center; /* Fixer le sommet */
 				}
+
+
+				@media(max-width: 576px) {
+					.search-bar input {
+						width: 100%;
+					}
+
+					.bottom-nav {
+
+						height: auto;
+					}
+
+					.nav-item {
+						margin-bottom: 10px;
+					}
+
+					.nav-item span {
+						font-size: 10px;
+					}
+
+					.notifications {
+						margin-top: 10px;
+					}
+				}
+
+				
 			</style>
 			<nav style="margin-top: -12%; ">
 				<div class="container">
@@ -585,10 +567,10 @@
 					<span>Accueil</span>
 				</a>
 				<a href="{{ path('pharmacie_proche') }}" class="nav-item">
-					<svg class="ic" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-geo-alt-fill" viewbox="0 0 16 16">
+					<svg class="idpharmacie" class="ic" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-geo-alt-fill" viewbox="0 0 16 16">
 						<path fill-rule="evenodd" d="M12 6a4 4 0 1 0-8 0 4 4 0 0 0 8 0ZM8 0a6 6 0 0 0-6 6c0 1.7.924 3.68 2.287 5.329.678.843 1.454 1.593 2.155 2.146.354.28.688.528.958.711.134.091.252.165.345.217l.066.036.017.01h.002l.001.001s0-.001.4.202a.25.25 0 0 0 .234 0s.4-.202.4-.202l.002-.001h.001l.017-.01.066-.036c.093-.052.211-.126.345-.217.27-.183.604-.43.958-.711.701-.553 1.477-1.303 2.155-2.146C13.076 9.68 14 7.7 14 6a6 6 0 0 0-6-6Z"/>
 					</svg>
-					<span>Pharmacie proche</span>
+					<span class="idpharmacie">Pharmacie proche</span>
 				</a>
 				<a href="{{ path('pharmacie_garde') }}" class="nav-item">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" ç fill="currentColor" class="bi bi-clock-fill" viewbox="0 0 16 16">
@@ -609,44 +591,42 @@
 	</div>
 	<script>
 		document.getElementById('searchPharmacie').addEventListener('keyup', function () {
-               let filter = this.value.toLowerCase();
-               let items = document.querySelectorAll('#pharamacieList ul');
-               let noResults = document.getElementById('pharamacieLi');
+let filter = this.value.toLowerCase();
+let items = document.querySelectorAll('#pharamacieList ul');
+let noResults = document.getElementById('pharamacieLi');
 
-                let anyMatch = false;
+let anyMatch = false;
 
-                items.forEach(item => {
-                let text = item.textContent.toLowerCase();
-                if (text.includes(filter)) {
-                item.style.display = '';
-                anyMatch = true;
-             } else {
-               item.style.display = 'none';
-         }
-            });
+items.forEach(item => {
+let text = item.textContent.toLowerCase();
+if (text.includes(filter)) {
+item.style.display = '';
+anyMatch = true;
+} else {
+item.style.display = 'none';
+}
+});
 // Afficher ou masquer le message "Aucun résultat trouvé"
-            if (anyMatch) {
-                noResults.style.display = 'none';
-              } else {
-                noResults.style.display = 'block'; 
-              }
-           });
+if (anyMatch) {
+noResults.style.display = 'none';
+} else {
+noResults.style.display = 'block';
+}
+});
 	</script>
-
-
 
 
 	<script>
 		document.addEventListener('DOMContentLoaded', function () {
-             const bellIcon = document.querySelector('.notificone');
+const bellIcon = document.querySelector('.notificone');
 
-               setInterval(() => {
-               bellIcon.classList.add('vibrate-strong');
-               setTimeout(() => {
-        bellIcon.classList.remove('vibrate-strong');
-                               }, 700); // Durée de l'animation en millisecondes
-                            }, 3000); // Intervalle de 3 secondes
-                        });
+setInterval(() => {
+bellIcon.classList.add('vibrate-strong');
+setTimeout(() => {
+bellIcon.classList.remove('vibrate-strong');
+}, 700); // Durée de l'animation en millisecondes
+}, 3000); // Intervalle de 3 secondes
+});
 	</script>
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

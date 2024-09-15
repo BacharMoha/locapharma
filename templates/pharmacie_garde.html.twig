@@ -456,7 +456,7 @@
 				.card-title {
 					font-size: 23px;
 				}
-				@media(max-width: 768px) {
+				/* @media(max-width: 768px) {
 					.container {
 						min-width: 1200px;
 						padding: 4%;
@@ -531,6 +531,112 @@
 						font-size: 45px;
 					}
 					
+				} */
+
+
+				@media(max-width: 992px) {
+					footer {
+
+						margin-left: 0;
+						padding: 10px;
+						text-align: center;
+
+					}
+
+					.bottom-nav svg {
+						height: 50px;
+						width: 50px;
+
+					}
+					.bottom-nav {
+						height: 100px;
+
+					}
+
+					.imgs {
+						height: 130px;
+						width: 130px;
+					}
+					.modal-content {
+
+						font-size: 30px;
+					}
+
+					.modal-title {
+						font-size: 30px;
+					}
+
+					.modal-body .notification-date {
+						font-family: 'Arial', sans-serif;
+						font-size: 2rem;
+						color: #666666;
+
+					}
+
+					.modal-body .notification-body {
+						font-size: 30px;
+					}
+					.notificone {
+						margin-top: 25px;
+						height: 70px;
+						width: 70px;
+						margin-left: -20px;
+					}
+					.notification-badge {
+						font-size: 25px;
+						width: 30px;
+						height: 30px;
+						top: 15px;
+						right: -5px;
+					}
+					.imgl {
+						height: 150px;
+						width: 290px;
+					}
+					.search-bar input {
+						height: 65px;
+						border-radius: 30px;
+						font-size: 23px;
+						min-width: 600px;
+
+					}
+					.messag-erreur {
+						margin-left: -20%;
+					}
+					.bottom-nav img {
+						width: 150px;
+						height: 150px;
+						margin-top: -15%;
+					}
+					.nav-item svg {
+						display: block;
+						margin: 0 auto 5px;
+						text-align: center;
+						padding-left: -5%;
+					}
+
+					.nav-item span {
+						font-size: 19px;
+						color: #0839CF;
+					}
+					.stron {
+						font-size: 45px;
+					}
+					.card-text {
+						font-size: 45px;
+					}
+					.strong {
+
+						font-size: 40px;
+					}
+					.card-title {
+						font-size: 50px;
+					}
+					.conta{
+						margin-top: -50px;
+						margin-bottom: 30%;
+					}
+				
 				}
 			</style>
 			<nav style="margin-top: -12%;">
@@ -602,18 +708,18 @@
 						{% else %}
 							<p class="card-text" style="text-align: center; ">La pharmacie de garde cette semaine est la
 								<strong class="stron" style="color:#0839CF;">{{ pharmacie.nomPharma }}</strong>. 
-																																																																									    Située en plein cœur de la ville, 
-																																																																									    cette pharmacie est ouverte pour répondre à vos besoins urgents en médicaments et en soins. 
-																																																																									    Elle sera à votre service du
+																																																																																		    Située en plein cœur de la ville, 
+																																																																																		    cette pharmacie est ouverte pour répondre à vos besoins urgents en médicaments et en soins. 
+																																																																																		    Elle sera à votre service du
 								<strong class="strongs" style="color:#0839CF; font-size: px;">{{ planning.dateDebut ? planning.dateDebut|date('H:i') : 'Non spécifié' }}
 									à
 									{{ planning.dateFin ? planning.dateFin|date('H:i') : 'Non spécifié' }}</strong>, assurant une disponibilité continue pour vous 
-																																																																									    et vos proches.
+																																																																																		    et vos proches.
 
 							</p>
 							<p class="card-text" style="text-align: center;  margin-top: 5%; ">
 								En cas de besoin, vous pouvez facilement contacter la pharmacie de garde avec
-																																																																	  le numéro de téléphone ci-dessous.
+																																																																									  le numéro de téléphone ci-dessous.
 								<strong class="stron" style="color:#0839CF;">{{ pharmacie.nomPharma }}</strong>
 								se tient prête à vous assister avec professionnalisme et attention.
 							</p>
@@ -626,7 +732,7 @@
 							<svg class="ccc" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-telephone-fill" viewbox="0 0 16 16">
 								<path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"/>
 							</svg><br>
-							<span class="strong">Contactez la Pharmacie :
+							<span class="strong">Contact:
 								{{ pharmacie.tel }}
 							</span>
 						</div>
@@ -652,7 +758,7 @@
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-geo-alt-fill" viewbox="0 0 16 16">
 						<path fill-rule="evenodd" d="M12 6a4 4 0 1 0-8 0 4 4 0 0 0 8 0ZM8 0a6 6 0 0 0-6 6c0 1.7.924 3.68 2.287 5.329.678.843 1.454 1.593 2.155 2.146.354.28.688.528.958.711.134.091.252.165.345.217l.066.036.017.01h.002l.001.001s0-.001.4.202a.25.25 0 0 0 .234 0s.4-.202.4-.202l.002-.001h.001l.017-.01.066-.036c.093-.052.211-.126.345-.217.27-.183.604-.43.958-.711.701-.553 1.477-1.303 2.155-2.146C13.076 9.68 14 7.7 14 6a6 6 0 0 0-6-6Z"/>
 					</svg>
-					<span class="idpharmacie">Pharmacie proche</span>
+					<span>Pharmacie proche</span>
 				</a>
 				<a href="{{ path('pharmacie_garde') }}" class="nav-item">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" ç fill="currentColor" class="bi bi-clock-fill" viewbox="0 0 16 16">

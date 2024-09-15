@@ -155,7 +155,6 @@
 				}
 
 				/* Styles spécifiques pour les petites résolutions */
-				
 
 
 				#btn-insponible {
@@ -254,17 +253,17 @@
 				}
 
 				.text-muted {
-						display: -webkit-box;
-						-webkit-line-clamp: 4; /* Afficher seulement 3 lignes */
-						-webkit-box-orient: vertical;
-						overflow: hidden;
-						text-overflow: ellipsis; /* Ajouter "..." à la fin du texte coupé */
-						max-height: 5.5em; /* Approximation de 3 lignes selon la taille de la ligne */
-						line-height: 1.5em; /* Hauteur de chaque ligne */
-				
+					display: -webkit-box;
+					-webkit-line-clamp: 4; /* Afficher seulement 3 lignes */
+					-webkit-box-orient: vertical;
+					overflow: hidden;
+					text-overflow: ellipsis; /* Ajouter "..." à la fin du texte coupé */
+					max-height: 5.5em; /* Approximation de 3 lignes selon la taille de la ligne */
+					line-height: 1.5em; /* Hauteur de chaque ligne */
+
 				}
 				@media(max-width: 992px) {
-					
+
 					.text-muted {
 						font-size: x-large;
 						display: -webkit-box;
@@ -372,69 +371,7 @@
 				.location-text {
 					font-size: 14px; /* Taille du texte, ajuste selon tes besoins */
 				}
-				@media(max-width: 992px) {
-					
-					.imgs {
-						height: 130px;
-						width: 130px;
-					}
-					.card-text-center {
 
-						font-size: 40px; /* Ajuste la taille de la police si nécessaire */
-
-
-					}
-					.btn-primary {
-						width: 30%;
-						height: 60px;
-						font-size: 30px;
-					}
-					.vvv {}
-					.modal-content {
-
-						font-size: 30px;
-					}
-
-					.modal-title {
-						font-size: 30px;
-					}
-
-					.modal-body .notification-date {
-						font-family: 'Arial', sans-serif;
-						font-size: 2rem;
-						color: #666666;
-
-					}
-
-					.modal-body .notification-body {
-						font-size: 30px;
-					}
-					.notificone {
-						height: 60px;
-						width: 60px;
-						
-					}
-					.notification-badge {
-						font-size: 20px;
-						width: 28px;
-						height: 28px;
-						top: -10px;
-						right: -19px;
-					}
-					.imgl {
-						height: 120px;
-						width: 210px;
-					}
-					.search-bar input {
-						height: 65px;
-						border-radius: 30px;
-						font-size: 23px;
-						min-width: 600px;
-
-					}
-
-
-				}
 				@keyframes strongShake {
 					0% {
 						transform: rotate(0deg);
@@ -476,10 +413,12 @@
 					animation-iteration-count: 1;
 					transform-origin: top center; /* Fixer le sommet */
 				}
-				#crd-mb4{
-						height: 245px;
-					}
+				#crd-mb4 {
+					height: 245px;
+				}
 
+
+				/* 
 				@media(max-width: 768px) {
 					.container {
 						min-width: 1200px;
@@ -514,6 +453,7 @@
 						border-radius: 40px;
 						font-size: 30px;
 						width: 60%;
+
 					}
 					.text-md-start {
 						margin-left: 10%;
@@ -524,7 +464,12 @@
 						width: 300px;
 						height: 200px;
 					}
-				
+
+					.bottom-nav img {
+						width: 210px;
+						height: 210px;
+						margin-top: -40%;
+					}
 					.bottom-nav img {
 						width: 210px;
 						height: 210px;
@@ -534,6 +479,7 @@
 						margin-right: -15%;
 						height: 120px;
 						min-width: 35%;
+
 					}
 					.align-items-center {
 						margin-left: 0;
@@ -552,15 +498,15 @@
 					.card-title {
 						font-size: 45px;
 					}
-					.nmMdc{
+					.nmMdc {
 						margin-top: 8%;
 					}
-					#crd-mb4{
+					#crd-mb4 {
 						height: 300px;
 						margin-top: 6%;
 					}
 
-				}
+				} */
 				.image-cage {
 					position: relative;
 					width: 100%;
@@ -582,6 +528,98 @@
 
 				.image-cage:hover img {
 					transform: translate(-50%, -50%) scale(1.1); /* Zoom in effect */
+				}
+				
+				@media(max-width: 992px) {
+					footer {
+
+						margin-left: 0;
+						padding: 10px;
+						text-align: center;
+
+					}
+
+					.bottom-nav svg {
+						height: 50px;
+						width: 50px;
+
+					}
+					.bottom-nav {
+						height: 100px;
+
+					}
+
+					.imgs {
+						height: 130px;
+						width: 130px;
+					}
+					.modal-content {
+
+						font-size: 30px;
+					}
+
+					.modal-title {
+						font-size: 30px;
+					}
+
+					.modal-body .notification-date {
+						font-family: 'Arial', sans-serif;
+						font-size: 2rem;
+						color: #666666;
+
+					}
+
+					.modal-body .notification-body {
+						font-size: 30px;
+					}
+						.notificone {
+						margin-top: -40px;
+						height: 70px;
+						width: 70px;
+						margin-left: -20px;
+					}
+					.notification-badge {
+						font-size: 25px;
+						width: 30px;
+						height: 30px;
+						top: -50px;
+						right: -5px;
+					}
+					.imgl {
+						height: 150px;
+						width: 290px;
+					}
+					.search-bar input {
+						height: 65px;
+						border-radius: 30px;
+						font-size: 23px;
+						min-width: 600px;
+
+					}
+					.messag-erreur {
+						margin-left: -20%;
+					}
+						.bottom-nav img {
+						width: 150px;
+						height: 150px;
+						margin-top: -15%;
+					}
+				.nav-item svg {
+					display: block;
+					margin: 0 auto 5px;
+					text-align: center;
+					padding-left: -5%;
+				}
+
+				.nav-item span {					
+					font-size: 19px;
+					color: #0839CF;
+				}
+				.nmMdc{
+					font-size: 27px;
+					font-weight: bolde;
+				}
+				
 				}
 			</style>
 
@@ -666,12 +704,12 @@
 															</h5>
 														{% endfor %}
 														{# <div class="medicament-info">
-																																																																																																																																																																																																				    <a href="" target="_blank" class="location-link">
-																																																																																																																																																																																																				        <i class="fas fa-map-marker-alt location-icon"><b style="font-size: 12px;">Nous retrouver</b></i>
-																																																																																																																																																																																																				        <span class="location-text"></span>
-																																																																																																																																																																																																				    </a>
-																																																																																																																																																																																																				</div> #}
-														<p class="card-text nmMdc" style="font-size: px;">
+																																																																																																																																																																																																																																														    <a href="" target="_blank" class="location-link">
+																																																																																																																																																																																																																																														        <i class="fas fa-map-marker-alt location-icon"><b style="font-size: 12px;">Nous retrouver</b></i>
+																																																																																																																																																																																																																																														        <span class="location-text"></span>
+																																																																																																																																																																																																																																														    </a>
+																																																																																																																																																																																																																																														</div> #}
+														<p class="card-text nmMdc">
 															<strong>
 																<b>
 																	{{medicament.nomMedoc}}</b>
@@ -686,8 +724,8 @@
 															<div>
 																<button
 																	class="btn btn-success" style="border-radius: 10px; background: rgb(43, 167, 13); border: none; width: 120px;">{# <b>
-																																																																																																																																																																																																																																																																												{{medicament.prix}} KMF.
-																																																																																																																																																																																																																																																																											</b> #}
+																																																																																																																																																																																																																																																																																																																																		{{medicament.prix}} KMF.
+																																																																																																																																																																																																																																																																																																																																	</b> #}
 																</button>
 															</div>
 
@@ -804,7 +842,7 @@
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-geo-alt-fill" viewbox="0 0 16 16">
 							<path fill-rule="evenodd" d="M12 6a4 4 0 1 0-8 0 4 4 0 0 0 8 0ZM8 0a6 6 0 0 0-6 6c0 1.7.924 3.68 2.287 5.329.678.843 1.454 1.593 2.155 2.146.354.28.688.528.958.711.134.091.252.165.345.217l.066.036.017.01h.002l.001.001s0-.001.4.202a.25.25 0 0 0 .234 0s.4-.202.4-.202l.002-.001h.001l.017-.01.066-.036c.093-.052.211-.126.345-.217.27-.183.604-.43.958-.711.701-.553 1.477-1.303 2.155-2.146C13.076 9.68 14 7.7 14 6a6 6 0 0 0-6-6Z"/>
 						</svg>
-						<span class="idpharmacie">Pharmacie proche</span>
+						<span>Pharmacie proche</span>
 					</a>
 					<a href="{{ path('pharmacie_garde') }}" class="nav-item">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" ç fill="currentColor" class="bi bi-clock-fill" viewbox="0 0 16 16">

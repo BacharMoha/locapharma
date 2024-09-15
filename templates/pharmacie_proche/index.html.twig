@@ -329,20 +329,18 @@
 
 		<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
 		<script>
-			// Détection de la position de l'utilisateur
+	// Détection de la position de l'utilisateur
 navigator.geolocation.getCurrentPosition(function (position) {
 const userLat = position.coords.latitude;
 const userLng = position.coords.longitude;
 
 // Initialisation de la carte
-const map = L.map('map').setView([
-userLat, userLng
-], 13);
+const map = L.map('map').setView([userLat, userLng], 13);
 
 // Ajout des tuiles de la carte
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-maxZoom: 19,
-attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
 // Ajout d'un marqueur pour l'utilisateur
@@ -350,71 +348,66 @@ L.marker([userLat, userLng]).addTo(map).bindPopup('Vous êtes ici').openPopup();
 
 // Récupération des pharmacies à partir du backend
 fetch('{{ path('api_pharmacies') }}').then(response => response.json()).then(pharmacies => {
-let closestPharmacy = null;
-let minDistance = Infinity;
+    let closestPharmacy = null;
+    let minDistance = Infinity;
 
-pharmacies.forEach(pharmacie => {
-const pharmacyLat = pharmacie.latitude;
-const pharmacyLng = pharmacie.longitude;
+    pharmacies.forEach(pharmacie => {
+        const pharmacyLat = pharmacie.latitude;
+        const pharmacyLng = pharmacie.longitude;
 
-// Calcul de la distance entre l'utilisateur et la pharmacie
-const distance = map.distance([
-userLat, userLng
-], [pharmacyLat, pharmacyLng]);
+        // Calcul de la distance entre l'utilisateur et la pharmacie
+        const distance = map.distance([userLat, userLng], [pharmacyLat, pharmacyLng]);
 
-if (distance < minDistance) {
-minDistance = distance;
-closestPharmacy = pharmacie;
-}
+        if (distance < minDistance) {
+            minDistance = distance;
+            closestPharmacy = pharmacie;
+        }
 
-// Ajout de marqueurs pour les pharmacies
-L.marker([pharmacyLat, pharmacyLng]).addTo(map).bindPopup(`<b>${
-pharmacie.nom
-}</b><br>Distance: ${
-distance.toFixed(2)
-} mètres`);
-});
+        // Ajout de marqueurs pour les pharmacies
+        L.marker([pharmacyLat, pharmacyLng]).addTo(map).bindPopup(`<b>${pharmacie.nom}</b><br>Distance: ${distance.toFixed(2)} mètres`);
+    });
 
-// Tracer une ligne vers la pharmacie la plus proche
-if (closestPharmacy) {
-const closestPharmacyLat = closestPharmacy.latitude;
-const closestPharmacyLng = closestPharmacy.longitude;
+    // Tracer une ligne vers la pharmacie la plus proche
+    if (closestPharmacy) {
+        const closestPharmacyLat = closestPharmacy.latitude;
+        const closestPharmacyLng = closestPharmacy.longitude;
 
-// Centrer la carte sur la pharmacie la plus proche avec un zoom plus élevé
-map.setView([
-closestPharmacyLat, closestPharmacyLng
-], 16);
-// Zoom augmenté à 16
+        // Centrer la carte sur la pharmacie la plus proche avec un zoom plus élevé
+        map.setView([closestPharmacyLat, closestPharmacyLng], 16);
 
-// Tracer une ligne entre la position actuelle et la pharmacie la plus proche
-L.polyline([
-[
-userLat, userLng
-],
-[
-closestPharmacyLat, closestPharmacyLng
-]
-], {
-color: 'blue',
-weight: 3,
-opacity: 0.7
-}).addTo(map);
+        // Requête à l'API OSRM pour obtenir l'itinéraire
+        const osrmUrl = `https://router.project-osrm.org/route/v1/foot/${userLng},${userLat};${closestPharmacyLng},${closestPharmacyLat}?geometries=geojson&overview=full`;
 
-alert(`La pharmacie la plus proche est  ${
-closestPharmacy.nom
-} à ${
-minDistance.toFixed(2)
-} mètres.`);
-}
+        fetch(osrmUrl)
+            .then(response => response.json())
+            .then(data => {
+                // Récupérer la polyline de l'itinéraire
+                const route = data.routes[0].geometry.coordinates;
+                const latLngRoute = route.map(coord => [coord[1], coord[0]]); // Inverser l'ordre lat, lng
+
+                // Tracer la polyline sur la carte
+                L.polyline(latLngRoute, {
+                    color: 'blue',
+                    weight: 4,
+                    opacity: 0.7
+                }).addTo(map);
+
+                alert(`La pharmacie la plus proche est ${closestPharmacy.nom} à ${minDistance.toFixed(2)} mètres.`);
+            })
+            .catch(error => {
+                console.error('Erreur lors de la récupération de l\'itinéraire:', error);
+            });
+    }
 });
 }, function (error) {
-alert('Erreur lors de la détection de la position : ' + error.message);
+    alert('Erreur lors de la détection de la position : ' + error.message);
 }, {
-enableHighAccuracy: true,
-timeout: 5000,
-maximumAge: 0
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0
 });
-		</script>
+</script>
+
 
 		<footer>
 			<nav class="bottom-nav">

@@ -443,24 +443,60 @@ class AdminController extends AbstractController
     }
 
     #[Route('/planning', name: 'app_planning')]
-    public function planning(Request $request,EntityManagerInterface $entityManager): Response
+    public function planning(Request $request, EntityManagerInterface $entityManager): Response
     {
-            
-
-            // Vérification que les mots de passe correspondent
-            $pharmacie = $entityManager->getRepository(Pharmacie::class)->find($request->request->get('pharmacy'));
-          
-            $planning = new PlanningGarde();
-            $planning->setIdPharmacie($pharmacie);
-            $planning->setDateDebut(new \DateTime($request->request->get('start_date')));
-            $planning->setDateFin(new \DateTime($request->request->get('end_date')));
-
-
-            $entityManager->persist($planning);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_voirplanning');
+        // Récupération de la pharmacie
+        $pharmacie = $entityManager->getRepository(Pharmacie::class)->find($request->request->get('pharmacy'));
+    
+        // Création des objets DateTime pour les dates de début et de fin
+        $startDate = new \DateTime($request->request->get('start_date'));
+        $endDate = new \DateTime($request->request->get('end_date'));
+    
+        // Vérification que la date de début et de fin ne sont pas égales et que la date de début n'est pas supérieure à la date de fin
+        if ($startDate > $endDate) {
+            $this->addFlash('error', 'La date de début ne peut pas être supérieure à la date de fin.');
+            return $this->redirectToRoute('app_creerplannig');
+        }
+    
+        if ($startDate == $endDate) {
+            $this->addFlash('error', 'La date de début ne peut pas être égale à la date de fin.');
+            return $this->redirectToRoute('app_creerplannig');
+        }
+    
+        // Vérification des chevauchements avec des plannings existants
+        $existingPlanning = $entityManager->getRepository(PlanningGarde::class)->createQueryBuilder('p')
+            ->where('p.idPharmacie = :pharmacie')
+            ->andWhere(
+                '(:startDate BETWEEN p.dateDebut AND p.dateFin) OR 
+                 (:endDate BETWEEN p.dateDebut AND p.dateFin) OR
+                 (p.dateDebut BETWEEN :startDate AND :endDate) OR
+                 (p.dateFin BETWEEN :startDate AND :endDate)'
+            )
+            ->setParameter('pharmacie', $pharmacie)
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
+            ->getQuery()
+            ->getOneOrNullResult();
+    
+        if ($existingPlanning) {
+            // Afficher un message d'erreur si un planning existe déjà avec un chevauchement de dates
+            $this->addFlash('error', 'Un planning pour cette pharmacie existe déjà avec cette plage .');
+            return $this->redirectToRoute('app_creerplannig');
+        }
+    
+        // Création et enregistrement du nouveau planning
+        $planning = new PlanningGarde();
+        $planning->setIdPharmacie($pharmacie);
+        $planning->setDateDebut($startDate);
+        $planning->setDateFin($endDate);
+    
+        $entityManager->persist($planning);
+        $entityManager->flush();
+    
+        return $this->redirectToRoute('app_voirplanning');
     }
+    
+    
  
     #[Route('/admin/inscriptordreph', name: 'app_inscripordre')]
     public function inscriptordreph(): Response

@@ -1,6 +1,10 @@
 twig:
     file_name_pattern: '*.twig'
+    
+    globals:
+        intl: '@twig.extension.intl'
 
 when@test:
     twig:
         strict_variables: true
+

@@ -27,7 +27,7 @@ class PharmaciegardeController extends AbstractController
         $notificationCount = $query->getSingleScalarResult();
         // Récupérer l'heure actuelle uniquement (sans la date)
         $currentTime = new \DateTime('now', new \DateTimeZone('Indian/Comoro'));
-        $currentHour = $currentTime->format('H:i:s');
+        $currentHour = $currentTime->format('y-m-d');
         dump('Heure actuelle : ' . $currentHour);
 
         // Récupérer tous les plannings de garde
@@ -39,16 +39,14 @@ class PharmaciegardeController extends AbstractController
         );
 
         $planningGardes = $query->getResult();
-        dump($planningGardes);
 
         // Vérification manuelle des heures
         $pharmacieDeGarde = null;
         foreach ($planningGardes as $planningGarde) {
-            $debut = $planningGarde->getDateDebut()->format('H:i:s');
-            $fin = $planningGarde->getDateFin()->format('H:i:s');
+            $debut = $planningGarde->getDateDebut()->format('y-m-d');
+            $fin = $planningGarde->getDateFin()->format('y-m-d');
 
-            dump('Heure de début : ' . $debut);
-            dump('Heure de fin : ' . $fin);
+           
 
             if ($currentHour >= $debut && $currentHour <= $fin) {
                 $pharmacieDeGarde = $planningGarde;

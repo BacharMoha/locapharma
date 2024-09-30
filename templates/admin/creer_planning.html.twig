@@ -61,6 +61,13 @@
 	</nav>
 	<div class="container form-container">
 		<h1>Créer un Planning</h1>
+	{% for message in app.flashes('error') %}
+    <div class="alert alert-danger" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+
+
 		<form method="post" action="{{ path('app_planning') }}" >
 			<div class="mb-3">
 				<label for="pharmacy" class="form-label">Pharmacie</label>
@@ -74,11 +81,11 @@
 			</div>
 			<div class="mb-3">
 				<label for="startDate" class="form-label">Date de Début</label>
-				<input type="time" class="form-control" id="startDate" name="start_date" required>
+				<input type="date" class="form-control" id="startDate" name="start_date" required>
 			</div>
 			<div class="mb-3">
 				<label for="endDate" class="form-label">Date de Fin</label>
-				<input type="time" class="form-control" id="endDate" name="end_date" required>
+				<input type="date" class="form-control" id="endDate" name="end_date" required>
 			</div>
 			<button type="submit" class="btn btn-primary w-100" style="border-radius: 15px; background:  #0839CF;">Créer Planning</button>
 

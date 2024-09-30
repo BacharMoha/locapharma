@@ -14,10 +14,10 @@ class PlanningGarde
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateDebut = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateFin = null;
 
     #[ORM\ManyToOne(inversedBy: 'planningGardes')]

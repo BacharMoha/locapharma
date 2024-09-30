@@ -113,15 +113,15 @@
             <tr>
                 <td>{{ loop.index }}</td> {# Utilisation correcte de loop.index pour le numéro de la ligne #}
                 <td>{{ planning.IdPharmacie.nomPharma }}</td>
-                <td>{{ planning.dateDebut|date('H:i:s') }}</td>
-                <td>{{ planning.dateFin|date('H:i:s') }}</td>
+                <td>{{ planning.dateDebut|date('d/m/Y') }}</td>
+                <td>{{ planning.dateFin|date('d/m/Y') }}</td>
                 <td>
                     <a href="{{ path('app_modifplanning', {id: planning.id}) }}" class="btn btn-edit" style="border-radius: 20px;">Modifier</a>
                     <a href="{{ path('app_deleteplanning', {id: planning.id}) }}" class="btn btn-delete" style="border-radius: 20px;">Supprimer</a>
                 </td>
             </tr>
         {% endfor %}
-    </tbody>
+    </tbody>  
 </table>
  <nav aria-label="Page navigation">
             <ul class="pagination justify-content-center">

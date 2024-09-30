@@ -538,10 +538,12 @@
 
 
 					</header>
+					
 					<main class="container mt-4" id="pharamacieList">
 						{% for pharmacies in pharmacie %}
 
 							<ul class="pharmacy-list list-unstyled" id="pharamacieList">
+							
 								<li class="pharmacy-item d-flex flex-column align-items-start mb-4">
 									{% if pharmacies.image %}
 										<img src="{{ asset('images/' ~ pharmacies.image) }}" alt="Pharmacy Icon" style="width: 120px; height: 120px; border-radius: 25%;">
@@ -562,6 +564,7 @@
 								</li>
 
 							</ul>
+							
 						{% endfor %}
 
 

@@ -71,14 +71,18 @@
             {% endfor %}
         </select>
     </div>
+   <div class="mb-3">
+    <label for="endDate" class="form-label">Date debut</label>
+    <input type="date" class="form-control" id="start" name="start_date" 
+           value="{{ planning.dateFin ? planning.dateDebut|date('Y-m-d') : '' }}" required>
+</div>
+
     <div class="mb-3">
-        <label for="startDate" class="form-label">Date de Début</label>
-        <input type="time" class="form-control" id="startDate" name="start_date" value="{{ planning.dateDebut|date('H:i:s') }}" required>
-    </div>
-    <div class="mb-3">
-        <label for="endDate" class="form-label">Date de Fin</label>
-        <input type="time" class="form-control" id="endDate" name="end_date" value="{{ planning.dateFin|date('H:i:s') }}" required>
-    </div>
+    <label for="endDate" class="form-label">Date de Fin</label>
+    <input type="date" class="form-control" id="endDate" name="end_date" 
+           value="{{ planning.dateFin ? planning.dateFin|date('Y-m-d') : '' }}" required>
+</div>
+
     <button type="submit" class="btn btn-primary w-100" style="border-radius: 15px; background:  #0839CF;">Modifier Planning</button>
 </form>
 

@@ -1,6 +1,7 @@
 # config/services.yaml
 parameters:
     medicaments_directory: '%kernel.project_dir%/public/images'
+    locale: 'fr'
 
 services:
     _defaults:

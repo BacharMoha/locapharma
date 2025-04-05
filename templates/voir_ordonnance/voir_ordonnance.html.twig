@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Détails de l'ordonnance</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+  
+      color: #333;
+    }
+    
+    h1, h4 {
+      color: #4e73df;
+      font-weight: 600;
+    }
+
+    .container {
+      padding-top: 50px;
+      max-width: 1200px;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease-in-out;
+      cursor: pointer;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.05);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+
+    .modal-body img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .description-box {
+      background-color: #ffffff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .description-box h4 {
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+    }
+
+    .description-box p {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .action-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+
+    .action-buttons button {
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    .action-buttons .btn-primary {
+      background-color: #4e73df;
+      color: #fff;
+    }
+
+    .action-buttons .btn-danger {
+      background-color: #e74a3b;
+      color: #fff;
+    }
+
+    .modal-dialog {
+      max-width: 90%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1 class="text-center mb-5">Voir l'ordonnance</h1>
+    
+    <div class="row">
+      <div class="col-md-8">
+        <div class="row g-4">
+          <!-- Fichiers d'ordonnance -->
+          <div class="col-md-6">
+            <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#imageModal" data-img-src="{{ asset('images/PHOTO-2024-11-14-15-11-39.jpg') }}">
+              <img src="{{ asset('images/PHOTO-2024-11-14-15-11-39.jpg') }}" alt="Ordonnance 1">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="gallery-item" data-bs-toggle="modal" data-bs-target="#imageModal" data-img-src="{{ asset('images/PHOTO-2024-11-14-15-11-38.jpg') }}">
+              <img src="{{ asset('images/PHOTO-2024-11-14-15-11-38.jpg') }}" alt="Ordonnance 2">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Description -->
+      <div class="col-md-4">
+        <div class="description-box">
+          <h4>Description de l'ordonnance</h4>
+          <p>Cette ordonnance contient des médicaments nécessaires pour traiter la condition suivante. Merci de confirmer leur disponibilité dès que possible.</p>
+        </div>
+        <div class="action-buttons">
+          <button class="btn btn-primary">
+            <i class="fas fa-check"></i> Confirmer la commande
+          </button>
+          <button class="btn btn-danger">
+            <i class="fas fa-times"></i> Rejeter
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal pour afficher l'image -->
+  <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="imageModalLabel">Image de l'ordonnance</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+          <img id="modalImage" src="" alt="Ordonnance">
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  {# modal 1 #}
+  <div class="modal fade" id="modalTraitement" tabindex="-1" aria-labelledby="modalTraitementLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow-lg border-0">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title fw-bold" id="modalTraitementLabel">Options de traitement</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-4">
+        <p class="fs-5 text-secondary mb-4">Choisissez une action pour cette commande :</p>
+        <div class="d-flex justify-content-around">
+          <button id="btnNonDisponible" class="btn btn-danger btn-lg px-4 py-2">
+            <i class="fas fa-times-circle me-2"></i> Non disponible
+          </button>
+          <button id="btnEnvoyerRetour" class="btn btn-primary btn-lg px-4 py-2">
+            <i class="fas fa-paper-plane me-2"></i> Envoyer un retour
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modale 2 : Retour personnalisé -->
+<div class="modal fade" id="modalRetour" tabindex="-1" aria-labelledby="modalRetourLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow-lg border-0">
+      <!-- En-tête de la modale -->
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title fw-bold" id="modalRetourLabel">Envoyer un retour</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <!-- Corps de la modale -->
+      <div class="modal-body p-4">
+        <label for="reponseMessage" class="form-label fw-semibold text-secondary">
+          Message à l'utilisateur
+        </label>
+        <textarea 
+          id="reponseMessage" 
+          class="form-control shadow-sm rounded-3" 
+          rows="6"
+          style="resize: none;"
+        >Bonjour, vos médicaments suivants sont disponibles :
+- [Nom médicament 1] : 2000 KMF
+- [Nom médicament 2] : 3000 KMF
+Merci de confirmer votre commande.</textarea>
+      </div>
+      <!-- Pied de la modale -->
+      <div class="modal-footer d-flex justify-content-end">
+        <button id="btnEnvoyerMessage" class="btn btn-success btn-lg px-4 py-2">
+          <i class="fas fa-paper-plane me-2"></i> Envoyer
+        </button>
+      </div>
+    </div>
+  </div>
+  
+</div>
+<center><a href="{{ path('app_traitement_commande') }}" class="btn btn-secondary w-50 mt-3" style="border-radius: 20px; ">Retour</a></center>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Script pour afficher l'image en grand dans le modal
+    document.addEventListener('DOMContentLoaded', () => {
+      const galleryItems = document.querySelectorAll('.gallery-item');
+      const modalImage = document.getElementById('modalImage');
+
+      galleryItems.forEach(item => {
+        item.addEventListener('click', function () {
+          const imgSrc = this.getAttribute('data-img-src');
+          modalImage.src = imgSrc;
+        });
+      });
+    });
+  </script>
+</body>
+</html>

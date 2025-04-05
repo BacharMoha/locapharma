@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planning des Pharmacies de Garde 2024</title>
+    <style>
+        /* Style global */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            color: #333;
+            font-size: 14px;
+        }
+
+        /* Conteneur principal */
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* En-tête */
+        h1 {
+            text-align: center;
+            color: #1a73e8;
+            font-size: 25px;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        /* Mois */
+        .month {
+            background-color: #aad4f5;
+            color: black;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 17px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        /* Semaine */
+        .week {
+            display: table;
+            width: 100%;
+            border-bottom: 1px solid #ddd;
+            font-size: 14px;
+            padding: 12px 0;
+        }
+
+        .week div {
+            display: table-cell;
+            width: 33.33%;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .pharmacy {
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Filigrane */
+        .filigranne {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-40deg);
+            font-size: 120px;
+            color: rgba(187, 209, 234, 0.23);
+            z-index: 2; /* Assurez-vous que c'est négatif pour ne pas interférer avec le contenu */
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        /* Impression */
+        @media print {
+            body {
+                margin: 0;
+            }
+            .container {
+                box-shadow: none;
+                border: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Filigrane -->
+    <div class="filigranne">Locapharma</div>
+
+    <!-- Contenu principal -->
+    <div class="container">
+        <h1>Garde 2024</h1>
+
+        {% if message %}
+            <div style="color: orange;">{{ message }}</div>
+        {% endif %}
+
+        {% for month, weeks in planning %}
+            <div class="month">{{ month|capitalize|trans({}, 'messages') }}</div>
+            {% for week in weeks %}
+                <div class="week">
+                    {% set dateDebut = week.dateDebut %}
+                    {% set dateFin = week.dateFin %}
+
+                    {% if dateDebut|date('m') == dateFin|date('m') and dateDebut|date('Y') == dateFin|date('Y') %}
+                        <div>{{ dateDebut|date('d') }}-{{ dateFin|date('d/m') }}</div>
+                    {% else %}
+                        <div>{{ dateDebut|date('d/m') }}-{{ dateFin|date('d/m') }}</div>
+                    {% endif %}
+
+                    <div class="pharmacy">{{ week.pharmacy.nom }}</div>
+                    <div>{{ week.pharmacy.tel }}</div>
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+</body>
+</html>

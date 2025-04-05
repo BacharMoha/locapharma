@@ -628,39 +628,8 @@
 					</div>
 					<!-- Bouton de contact -->
 				</main>
-				<footer>
-					<nav class="bottom-nav">
-						<a href="{{ path('app_index') }}" class="imgs" style="margin-left: 10%;">
-							<img src="{{ asset('images/logoloca-removebg-preview.png') }}" id="locfr" width="115" height="115" alt="Pharmacy Icon">
-						</a>
-						<a href="{{ path('app_index') }}" class="nav-item">
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-house-fill" viewbox="0 0 16 16">
-								<path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
-								<path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"/>
-							</svg>
-							<span>Accueil</span>
-						</a>
-						<a href="{{ path('pharmacie_proche') }}" class="nav-item">
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-geo-alt-fill" viewbox="0 0 16 16">
-								<path fill-rule="evenodd" d="M12 6a4 4 0 1 0-8 0 4 4 0 0 0 8 0ZM8 0a6 6 0 0 0-6 6c0 1.7.924 3.68 2.287 5.329.678.843 1.454 1.593 2.155 2.146.354.28.688.528.958.711.134.091.252.165.345.217l.066.036.017.01h.002l.001.001s0-.001.4.202a.25.25 0 0 0 .234 0s.4-.202.4-.202l.002-.001h.001l.017-.01.066-.036c.093-.052.211-.126.345-.217.27-.183.604-.43.958-.711.701-.553 1.477-1.303 2.155-2.146C13.076 9.68 14 7.7 14 6a6 6 0 0 0-6-6Z"/>
-							</svg>
-							<span class="idpharmacie">Pharmacie proche</span>
-						</a>
-						<a href="{{ path('pharmacie_garde') }}" class="nav-item">
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" ç fill="currentColor" class="bi bi-clock-fill" viewbox="0 0 16 16">
-								<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM7.5 3.5a.5.5 0 0 0-1 0V8a.5.5 0 0 0 .276.447l3.5 1.75a.5.5 0 0 0 .448-.894L7.5 7.742V3.5Z"/>
-							</svg>
-							<span>Pharmacie de garde</span>
-						</a>
-						<a href="{{ path('recherche_medicament') }}" class="nav-item">
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-search" viewbox="0 0 16 16">
-								<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001a1.007 1.007 0 0 0-.116.125l-2.45 2.45a1 1 0 0 0 1.415 1.415l2.45-2.45a1.007 1.007 0 0 0 .125-.116v-.001a6.5 6.5 0 0 0 1.398-1.397zm-6.321-5.027a5.5 5.5 0 1 1 7.778 7.778 5.5 5.5 0 0 1-7.778-7.778z"/>
-							</svg>
-							<span>Médicaments</span>
-						</a>
+				{% include 'footer.html.twig' %}
 
-					</nav>
-				</footer>
 			</div>
 			<script>
 			document.getElementById('pharmacyImage').onclick = function() {
